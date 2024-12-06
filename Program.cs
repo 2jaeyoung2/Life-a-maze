@@ -165,15 +165,39 @@ namespace privateConsoleProject
                                     break;
                                 case 1:
                                     maze[i - 1, j].type = (int)MazeCompo.floor;
-                                    Console.WriteLine($"수정됨 {i}, {j}");
+                                    if (maze[i - 1, j].type != (int)MazeCompo.staticWall)
+                                    {
+                                        maze[i - 1, j].type = (int)MazeCompo.floor;
+                                        Console.WriteLine($"수정됨 {i}, {j}");
+                                    }
+                                    else
+                                    {
+                                        randomDestroy++;
+                                    }
                                     break;
                                 case 2:
                                     maze[i, j + 1].type = (int)MazeCompo.floor;
-                                    Console.WriteLine($"수정됨 {i}, {j}");
+                                    if (maze[i, j + 1].type != (int)MazeCompo.staticWall)
+                                    {
+                                        maze[i, j + 1].type = (int)MazeCompo.floor;
+                                        Console.WriteLine($"수정됨 {i}, {j}");
+                                    }
+                                    else
+                                    {
+                                        randomDestroy++;
+                                    }
                                     break;
                                 case 3:
                                     maze[i, j - 1].type = (int)MazeCompo.floor;
-                                    Console.WriteLine($"수정됨 {i}, {j}");
+                                    if (maze[i, j - 1].type != (int)MazeCompo.staticWall)
+                                    {
+                                        maze[i, j - 1].type = (int)MazeCompo.floor;
+                                        Console.WriteLine($"수정됨 {i}, {j}");
+                                    }
+                                    else
+                                    {
+                                        randomDestroy++;
+                                    }
                                     break;
                             }
                         }
@@ -233,14 +257,12 @@ namespace privateConsoleProject
                             Console.Write("□");
                             Console.ResetColor();
                         }
-                        //플레이어
+                        //아이템
                         else if (maze[i, j].type == (float)MazeCompo.item)
                         {
                             if (maze[i, j].score > 3)
                             {
-                                Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.Write("※");
-                                Console.ResetColor();
                                 howMany[0]++;
                             }
                             else if (maze[i, j].score > 3)
@@ -291,8 +313,8 @@ namespace privateConsoleProject
                 var moveInput = Console.ReadKey();
 
                 stepCount--;
-                Console.Write($"{stepCount}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
-
+                Console.WriteLine($"{stepCount}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
+                Console.WriteLine($"현재 점수 >> {player.playerScore}");
                 ////리세마라
                 //if(input.Key == ConsoleKey.K)
                 //{
@@ -308,42 +330,14 @@ namespace privateConsoleProject
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.playerPosY - 1, player.playerPosX].type == (int)MazeCompo.item)
                         {
+                            //열매 점수 임시보관
+                            tempScore = maze[player.playerPosY - 1, player.playerPosX].score;
+                            
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            tempScore = maze[player.playerPosY - 1, player.playerPosX].score;   //열매 점수 임시보관
-                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation; //나는 일단 이동했고
-                            maze[player.playerPosY - 1, player.playerPosX].score = tempScore; 
+                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation; 
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-
-                            //옮긴 자리에 아이템이 있을 떄
-                            if (maze[player.playerPosY - 1, player.playerPosX].score > tempScore)
-                            {
-                                Console.WriteLine("아이템");
-                                //var eatInput = Console.ReadKey();
-                                //'z'를 눌러 먹음
-                                //if (eatInput.Key == ConsoleKey.Z)
-                                //{
-
-                                //    eatCount++;
-                                //}
-                                //else
-                                //{
-                                //    moveInput = eatInput; //'z'말고 방향키를 누르면 바로 이동하게. 두번누르게되는거 방지
-
-                                //}
-                            }
-
-                            //(임시 점수 확인용)
-                            myScore += tempScore;
-                            Console.WriteLine($">> {tempScore} | {eatCount} / 3");
+                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
-
-                        //벽 뚫기
-                        //else if()
-                        //{
-
-                        //}
-
-                        //floor이면 위치 교환
                         else
                         {
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
@@ -366,16 +360,14 @@ namespace privateConsoleProject
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.playerPosY + 1, player.playerPosX].type == (int)MazeCompo.item)
                         {
+                            //열매 점수 임시보관
+                            tempScore = maze[player.playerPosY + 1, player.playerPosX].score;
+
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            tempScore = maze[player.playerPosY + 1, player.playerPosX].score;   //열매 점수 임시보관
-                            maze[player.playerPosY + 1, player.playerPosX].type = tempLocation; //나는 일단 이동했고
+                            maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            eatCount++;
-                            //(임시 점수 확인용)
-                            myScore += tempScore;
-                            Console.WriteLine($">> {tempScore} | {eatCount} / 3");
+                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
-                        //floor이면 위치 교환
                         else
                         {
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
@@ -398,16 +390,14 @@ namespace privateConsoleProject
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.playerPosY, player.playerPosX - 1].type == (int)MazeCompo.item)
                         {
+                            //열매 점수 임시보관
+                            tempScore = maze[player.playerPosY, player.playerPosX - 1].score;
+
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            tempScore = maze[player.playerPosY, player.playerPosX - 1].score;   //열매 점수 임시보관
-                            maze[player.playerPosY, player.playerPosX - 1].type = tempLocation; //나는 일단 이동했고
+                            maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            eatCount++;
-                            //(임시 점수 확인용)
-                            myScore += tempScore;
-                            Console.WriteLine($">> {tempScore} | {eatCount} / 3");
+                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
-                        //floor이면 위치 교환
                         else
                         {
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
@@ -429,16 +419,14 @@ namespace privateConsoleProject
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.playerPosY, player.playerPosX + 1].type == (int)MazeCompo.item)
                         {
+                            //열매 점수 임시보관
+                            tempScore = maze[player.playerPosY, player.playerPosX + 1].score;
+
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            tempScore = maze[player.playerPosY, player.playerPosX + 1].score;   //열매 점수 임시보관
-                            maze[player.playerPosY, player.playerPosX + 1].type = tempLocation; //나는 일단 이동했고
+                            maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            eatCount++;
-                            //(임시 점수 확인용)
-                            myScore += tempScore;
-                            Console.WriteLine($">> {tempScore} | {eatCount} / 3");
+                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
-                        //floor이면 위치 교환
                         else
                         {
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
@@ -451,9 +439,16 @@ namespace privateConsoleProject
                         stepCount++;
                     }
                 }
+                //'z'일경우 먹음
+                else if(moveInput.Key == ConsoleKey.Z)
+                {
+                    player.playerScore += tempScore;
+                    eatCount++;
+                    stepCount++;
+                }
 
                 //방향키 아닐경우
-                if(moveInput.Key != ConsoleKey.UpArrow && moveInput.Key != ConsoleKey.DownArrow && moveInput.Key != ConsoleKey.LeftArrow && moveInput.Key != ConsoleKey.RightArrow)
+                else
                 {
                     stepCount++;
                     Console.WriteLine($"{stepCount}방향키를 입력해주세요.");
@@ -464,16 +459,13 @@ namespace privateConsoleProject
                 {
                     //Ending();
                     Console.WriteLine("Ending()");
-                    break;
+                    Console.WriteLine(player.playerScore);
+                    if(moveInput.Key == ConsoleKey.Z)
+                    {
+                        break;
+                    }
                 }
-
-                //한 번 움직일 때 마다 발걸음 카운트 줄어듦
-                
             }
-
-
-            //맵 랜더링(?)
-
         }
     }
 }
