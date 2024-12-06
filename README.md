@@ -1,2 +1,7 @@
-# LIfe-maze
+# Life-maze
  private Console project
+
+
+
+
+hello
