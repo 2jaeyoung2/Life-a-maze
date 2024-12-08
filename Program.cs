@@ -15,7 +15,6 @@ namespace privateConsoleProject
             Banner();
             StartMenu();
             //시작
-
         }
 
         //시작메뉴
@@ -29,7 +28,6 @@ namespace privateConsoleProject
             Console.WindowWidth = width; //넓이
 
             StartGame();
-
         }
 
         //배너 함수
@@ -37,7 +35,7 @@ namespace privateConsoleProject
         {
             //위치 및 색상 조절
             Console.ForegroundColor = ConsoleColor.DarkGray;
-#region 배너           
+            #region 배너           
             Console.WriteLine();
             Console.WriteLine("{1}{1}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", "■", "　");
             Console.WriteLine("{1}{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{0}", "■", "　");
@@ -48,7 +46,7 @@ namespace privateConsoleProject
             Console.WriteLine("{0}{1}{1}{0}{0}{0}{1}{0}{1}{0}{1}{1}{1}{1}{0}{0}{0}{0}{1}{1}{1}{1}{1}{0}{1}{1}{1}{0}{1}{0}{1}{1}{0}{1}{0}{0}{0}{0}{1}{0}{0}{0}{0}{1}{1}{0}", "■", "　");
             Console.WriteLine("{1}{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{0}", "■", "　");
             Console.WriteLine("{1}{1}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", "■", "　");
-#endregion
+            #endregion
             Console.ResetColor();
         }
 
@@ -68,6 +66,13 @@ namespace privateConsoleProject
             public int playerPosY;
             public float playerScore;
         }
+
+        // 거리 계산 메서드
+        static double CalculateDistance(int x1, int y1, int x2, int y2)
+        {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+        }
+
         static void StartGame()
         {
             //플레이어 생성
@@ -94,7 +99,7 @@ namespace privateConsoleProject
             float myScore = 0;
             int eatCount = 0;
             int[] howMany = new int[5] { 0, 0, 0, 0, 0 };
-            
+
 
             //맵 초기화
             ////외곽 생성
@@ -117,19 +122,20 @@ namespace privateConsoleProject
 
             //플레이어 위치 초기화
             maze[1, 1].type = (float)MazeCompo.me;
-
+            player.playerPosX = 1;
+            player.playerPosY = 1;
 
             #region 미로말고 맵 랜덤생성
 
             //랜덤 벽 생성
             for (int i = 0; i < distance; i++)
             {
-                for(int j = 0; j < distance; j++)
+                for (int j = 0; j < distance; j++)
                 {
                     if (maze[i, j].type == (int)MazeCompo.floor)
                     {
                         randomWall = random.Next(0, 3); //벽 밀도 조절
-                        if(randomWall == 2)
+                        if (randomWall == 2)
                         {
                             maze[i, j].type = (int)MazeCompo.wall;
                         }
@@ -226,7 +232,7 @@ namespace privateConsoleProject
                 {
                     if (maze[i, j].type == (int)MazeCompo.floor)
                     {
-                        randomItemPlace = random.Next(0, floorCount / distance );
+                        randomItemPlace = random.Next(0, floorCount / distance);
                         randomScore = (float)random.Next(50, 351) / 100;
 
                         if (randomItemPlace == 0)
@@ -244,61 +250,73 @@ namespace privateConsoleProject
                 //맵 랜더링(?)
                 Console.SetCursorPosition(0, 12);
                 Console.CursorVisible = false;
+
                 for (int i = 0; i < distance; i++)
                 {
                     Console.Write("　");
 
                     for (int j = 0; j < distance; j++)
                     {
-                        //길
-                        if (maze[i, j].type == (float)MazeCompo.floor)
+                        // 시야 제한 로직 추가
+                        double distanceFromPlayer = CalculateDistance(player.playerPosX, player.playerPosY, j, i);
+
+                        if (distanceFromPlayer <= 4) // 반지름 n의 원 내부만 보이도록
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.Write("□");
-                            Console.ResetColor();
+                            //길
+                            if (maze[i, j].type == (float)MazeCompo.floor)
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                                Console.Write("□");
+                                Console.ResetColor();
+                            }
+                            //플레이어
+                            else if (maze[i, j].type == (float)MazeCompo.me)
+                            {
+                                Console.Write("●");
+                                player.playerPosY = i;
+                                player.playerPosX = j;
+                            }
+                            //벽
+                            else if (maze[i, j].type == (float)MazeCompo.wall || maze[i, j].type == (float)MazeCompo.staticWall)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("▩");
+                                Console.ResetColor();
+                            }
+                            //아이템
+                            else if (maze[i, j].type == (float)MazeCompo.item)
+                            {
+                                if (maze[i, j].score > 3)
+                                {
+                                    Console.Write("※");
+                                    howMany[0]++;
+                                }
+                                else if (maze[i, j].score > 3)
+                                {
+                                    Console.Write("※");
+                                    howMany[1]++;
+                                }
+                                else if (maze[i, j].score > 2.3)
+                                {
+                                    Console.Write("※");
+                                    howMany[2]++;
+                                }
+                                else if (maze[i, j].score > 1.7)
+                                {
+                                    Console.Write("※");
+                                    howMany[3]++;
+                                }
+                                else
+                                {
+                                    Console.Write("※");
+                                    howMany[4]++;
+                                }
+                            }
                         }
-                        //아이템
-                        else if (maze[i, j].type == (float)MazeCompo.item)
+                        else
                         {
-                            if (maze[i, j].score > 3)
-                            {
-                                Console.Write("※");
-                                howMany[0]++;
-                            }
-                            else if (maze[i, j].score > 3)
-                            {
-                                Console.Write("※");
-                                howMany[1]++;
-                            }
-                            else if(maze[i, j].score > 2.3)
-                            {
-                                Console.Write("※");
-                                howMany[2]++;
-                            }
-                            else if (maze[i, j].score > 1.7)
-                            {
-                                Console.Write("※");
-                                howMany[3]++;
-                            }
-                            else
-                            {
-                                Console.Write("※");
-                                howMany[4]++;
-                            }
-                        }
-                        //플레이어
-                        else if (maze[i, j].type == (float)MazeCompo.me)
-                        {
-                            Console.Write("●");
-                            player.playerPosY = i;
-                            player.playerPosX = j;
-                        }
-                        //벽
-                        else if (maze[i, j].type == (float)MazeCompo.wall || maze[i, j].type == (float)MazeCompo.staticWall)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("▩");
-                            Console.ResetColor();
+                            // 시야 밖은 공백으로 처리
+                            Console.Write("　");
                         }
                     }
                     Console.WriteLine();
