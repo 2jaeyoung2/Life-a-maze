@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace privateConsoleProject
 {
     internal class Program
@@ -92,7 +86,7 @@ namespace privateConsoleProject
 
             //카운트 변수
             int floorCount = 0;
-            int stepCount = 100;
+            int stepCount = 200;
             int eatCount = 0;
             int[] howMany = new int[5] { 0, 0, 0, 0, 0 };
 
@@ -130,7 +124,7 @@ namespace privateConsoleProject
                 {
                     if (maze[i, j].type == (int)MazeCompo.floor)
                     {
-                        randomWall = random.Next(0, 3); //벽 밀도 조절
+                        randomWall = random.Next(0, 4); //벽 밀도 조절
                         if (randomWall == 2)
                         {
                             maze[i, j].type = (int)MazeCompo.wall;
@@ -138,6 +132,7 @@ namespace privateConsoleProject
                     }
                 }
             }
+
             // 고립지역 없애기
             for (int i = 0; i < distance - 1; i++)
             {
@@ -159,10 +154,6 @@ namespace privateConsoleProject
                                         maze[i + 1, j].type = (int)MazeCompo.floor;
                                         Console.WriteLine($"수정됨 {i}, {j}");
                                     }
-                                    else
-                                    {
-                                        randomDestroy++;
-                                    }
                                     break;
                                 case 1:
                                     maze[i - 1, j].type = (int)MazeCompo.floor;
@@ -170,10 +161,6 @@ namespace privateConsoleProject
                                     {
                                         maze[i - 1, j].type = (int)MazeCompo.floor;
                                         Console.WriteLine($"수정됨 {i}, {j}");
-                                    }
-                                    else
-                                    {
-                                        randomDestroy++;
                                     }
                                     break;
                                 case 2:
@@ -183,10 +170,6 @@ namespace privateConsoleProject
                                         maze[i, j + 1].type = (int)MazeCompo.floor;
                                         Console.WriteLine($"수정됨 {i}, {j}");
                                     }
-                                    else
-                                    {
-                                        randomDestroy++;
-                                    }
                                     break;
                                 case 3:
                                     maze[i, j - 1].type = (int)MazeCompo.floor;
@@ -195,19 +178,15 @@ namespace privateConsoleProject
                                         maze[i, j - 1].type = (int)MazeCompo.floor;
                                         Console.WriteLine($"수정됨 {i}, {j}");
                                     }
-                                    else
-                                    {
-                                        randomDestroy++;
-                                    }
                                     break;
                             }
                         }
                     }
                 }
             }
-
+            
             #endregion
-
+            
             //바닥 개수 세기
             for (int i = 0; i < distance; i++)
             {
