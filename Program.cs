@@ -11,12 +11,9 @@ namespace privateConsoleProject
     {
         static void Main(string[] args)
         {
-            //시작메뉴
             Banner();
             StartMenu();
-            //시작
         }
-
         //시작메뉴
         static void StartMenu()
         {
@@ -68,9 +65,9 @@ namespace privateConsoleProject
         }
 
         // 거리 계산 메서드
-        static double CalculateDistance(int x1, int y1, int x2, int y2)
+        static double CalculateDistance(int playerPosX, int playerPosY, int x2, int y2)
         {
-            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+            return Math.Sqrt(Math.Pow(playerPosX - x2, 2) + Math.Pow(playerPosY - y2, 2));
         }
 
         static void StartGame()
@@ -96,7 +93,6 @@ namespace privateConsoleProject
             //카운트 변수
             int floorCount = 0;
             int stepCount = 100;
-            float myScore = 0;
             int eatCount = 0;
             int[] howMany = new int[5] { 0, 0, 0, 0, 0 };
 
@@ -143,7 +139,6 @@ namespace privateConsoleProject
                 }
             }
             // 고립지역 없애기
-            int t = 0;
             for (int i = 0; i < distance - 1; i++)
             {
                 for (int j = 0; j < distance - 1; j++)
@@ -260,7 +255,7 @@ namespace privateConsoleProject
                         // 시야 제한 로직 추가
                         double distanceFromPlayer = CalculateDistance(player.playerPosX, player.playerPosY, j, i);
 
-                        if (distanceFromPlayer <= 4) // 반지름 n의 원 내부만 보이도록
+                        if (distanceFromPlayer <= 3) // 반지름 n의 원 내부만 보이도록
                         {
                             //길
                             if (maze[i, j].type == (float)MazeCompo.floor)
@@ -322,7 +317,7 @@ namespace privateConsoleProject
                     Console.WriteLine();
                 }
 
-                //상황판
+                ////상황판
                 //Console.SetCursorPosition(distance * 2 + 4 , 12);
                 //Console.WriteLine("――――――――――――――――");
 
