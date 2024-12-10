@@ -302,19 +302,19 @@ namespace privateConsoleProject
 
 
                 //키 입력
-                var moveInput = Console.ReadKey();
+                var keyInput = Console.ReadKey();
 
                 stepCount--;
-                Console.WriteLine($"{stepCount}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
+                Console.WriteLine($"{stepCount / 2}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
                 Console.WriteLine($"현재 점수 >> {player.playerScore}");
-                ////리세마라
-                //if(input.Key == ConsoleKey.K)
-                //{
 
-                //}
-
+                // 'R' 키로 맵 재생성
+                if (keyInput.Key == ConsoleKey.R)
+                {
+                    StartGame();
+                }
                 //상↑
-                if (moveInput.Key == ConsoleKey.UpArrow)
+                if (keyInput.Key == ConsoleKey.UpArrow)
                 {
                     //만약
                     if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY - 1, player.playerPosX].type)
@@ -344,7 +344,7 @@ namespace privateConsoleProject
                 }
 
                 //하↓
-                else if (moveInput.Key == ConsoleKey.DownArrow)
+                else if (keyInput.Key == ConsoleKey.DownArrow)
                 {
                     //만약
                     if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY + 1, player.playerPosX].type)
@@ -374,7 +374,7 @@ namespace privateConsoleProject
                 }
 
                 //좌←
-                else if (moveInput.Key == ConsoleKey.LeftArrow)
+                else if (keyInput.Key == ConsoleKey.LeftArrow)
                 {
                     //만약
                     if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY, player.playerPosX - 1].type)
@@ -404,7 +404,7 @@ namespace privateConsoleProject
                 }
 
                 //우→
-                else if (moveInput.Key == ConsoleKey.RightArrow)
+                else if (keyInput.Key == ConsoleKey.RightArrow)
                 {
                     if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY, player.playerPosX + 1].type)
                     {
@@ -432,10 +432,13 @@ namespace privateConsoleProject
                     }
                 }
                 //'z'일경우 먹음
-                else if(moveInput.Key == ConsoleKey.Z)
+                else if(keyInput.Key == ConsoleKey.Z)
                 {
-                    player.playerScore += tempScore;
-                    eatCount++;
+                    if (maze[player.playerPosY, player.playerPosX].score != 0)
+                    {
+                        player.playerScore += tempScore;
+                        eatCount++;
+                    }
                     stepCount++;
                 }
 
@@ -452,7 +455,7 @@ namespace privateConsoleProject
                     //Ending();
                     Console.WriteLine("Ending()");
                     Console.WriteLine(player.playerScore);
-                    if(moveInput.Key == ConsoleKey.Z)
+                    if(keyInput.Key == ConsoleKey.Z)
                     {
                         break;
                     }
