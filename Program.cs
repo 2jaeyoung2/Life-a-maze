@@ -91,6 +91,7 @@ namespace privateConsoleProject
             int[] howMany = new int[5] { 0, 0, 0, 0, 0 };
 
 
+
             //맵 초기화
             ////외곽 생성
             for (int i = 0; i < distance; i++)
@@ -221,6 +222,7 @@ namespace privateConsoleProject
             //플레이
             while (stepCount > 0)
             {
+                
                 //맵 랜더링(?)
                 Console.SetCursorPosition(0, 12);
                 Console.CursorVisible = false;
@@ -299,12 +301,10 @@ namespace privateConsoleProject
                 ////상황판
                 //Console.SetCursorPosition(distance * 2 + 4 , 12);
                 //Console.WriteLine("――――――――――――――――");
-
-
                 //키 입력
                 var keyInput = Console.ReadKey();
 
-                stepCount--;
+
                 Console.WriteLine($"{stepCount / 2}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
                 Console.WriteLine($"현재 점수 >> {player.playerScore}");
 
@@ -324,9 +324,9 @@ namespace privateConsoleProject
                         {
                             //열매 점수 임시보관
                             tempScore = maze[player.playerPosY - 1, player.playerPosX].score;
-                            
+
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation; 
+                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
                             Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
@@ -336,6 +336,7 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY - 1, player.playerPosX];
                             maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
                         }
+                        stepCount--;
                     }
                     else //못간다면
                     {
@@ -366,6 +367,7 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY + 1, player.playerPosX];
                             maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
                         }
+                        stepCount--;
                     }
                     else
                     {
@@ -396,6 +398,7 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX - 1];
                             maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
                         }
+                        stepCount--;
                     }
                     else
                     {
@@ -425,6 +428,7 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX + 1];
                             maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
                         }
+                        stepCount--;
                     }
                     else
                     {
@@ -432,7 +436,7 @@ namespace privateConsoleProject
                     }
                 }
                 //'z'일경우 먹음
-                else if(keyInput.Key == ConsoleKey.Z)
+                else if (keyInput.Key == ConsoleKey.Z)
                 {
                     if (maze[player.playerPosY, player.playerPosX].score != 0)
                     {
@@ -448,6 +452,8 @@ namespace privateConsoleProject
                     stepCount++;
                     Console.WriteLine($"{stepCount}방향키를 입력해주세요.");
                 }
+
+
 
                 //열매 세 개 먹었을 경우 게임 끝
                 if (eatCount == 3)
