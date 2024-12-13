@@ -153,7 +153,6 @@ namespace privateConsoleProject
                                     if (maze[i + 1, j].type != (int)MazeCompo.staticWall)
                                     {
                                         maze[i + 1, j].type = (int)MazeCompo.floor;
-                                        Console.WriteLine($"수정됨 {i}, {j}");
                                     }
                                     break;
                                 case 1:
@@ -161,7 +160,6 @@ namespace privateConsoleProject
                                     if (maze[i - 1, j].type != (int)MazeCompo.staticWall)
                                     {
                                         maze[i - 1, j].type = (int)MazeCompo.floor;
-                                        Console.WriteLine($"수정됨 {i}, {j}");
                                     }
                                     break;
                                 case 2:
@@ -169,7 +167,6 @@ namespace privateConsoleProject
                                     if (maze[i, j + 1].type != (int)MazeCompo.staticWall)
                                     {
                                         maze[i, j + 1].type = (int)MazeCompo.floor;
-                                        Console.WriteLine($"수정됨 {i}, {j}");
                                     }
                                     break;
                                 case 3:
@@ -177,7 +174,6 @@ namespace privateConsoleProject
                                     if (maze[i, j - 1].type != (int)MazeCompo.staticWall)
                                     {
                                         maze[i, j - 1].type = (int)MazeCompo.floor;
-                                        Console.WriteLine($"수정됨 {i}, {j}");
                                     }
                                     break;
                             }
@@ -336,12 +332,12 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY - 1, player.playerPosX];
                             maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
                         }
-                        stepCount--;
                     }
                     else //못간다면
                     {
                         stepCount++; //카운트 안내려감
                     }
+                    stepCount--;
                 }
 
                 //하↓
@@ -367,12 +363,12 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY + 1, player.playerPosX];
                             maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
                         }
-                        stepCount--;
                     }
                     else
                     {
                         stepCount++;
                     }
+                    stepCount--;
                 }
 
                 //좌←
@@ -398,12 +394,12 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX - 1];
                             maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
                         }
-                        stepCount--;
                     }
                     else
                     {
                         stepCount++;
                     }
+                    stepCount--;
                 }
 
                 //우→
@@ -428,12 +424,13 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX + 1];
                             maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
                         }
-                        stepCount--;
+                        
                     }
                     else
                     {
                         stepCount++;
                     }
+                    stepCount--;
                 }
                 //'z'일경우 먹음
                 else if (keyInput.Key == ConsoleKey.Z)
