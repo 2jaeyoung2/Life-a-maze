@@ -42,53 +42,6 @@ namespace privateConsoleProject
             Console.ResetColor();
         }
 
-        //상황판
-        static void DashBoard(int howLong)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(howLong * 2 + 4, 12);
-            Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-            Console.SetCursorPosition(howLong * 2 + 4, 13);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 14);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 15);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 16);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 17);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 18);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 19);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 20);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 21);
-            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
-            Console.SetCursorPosition(howLong * 2 + 4, 22);
-            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-            Console.ResetColor();
-        }
-        static void ShowInformation(int howLong, int leftSteps, float thisPoint, float sumPoint)
-        {
-            Console.SetCursorPosition(howLong * 2 + 5, 14);
-            Console.WriteLine($" > 남은 발걸음 : {leftSteps}");
-            Console.SetCursorPosition(howLong * 2 + 5, 16);
-            Console.WriteLine($" > 현재 점수 : {sumPoint}");
-            Console.SetCursorPosition(howLong * 2 + 5, 18);
-            Console.WriteLine($" > 열매 점수 : {thisPoint}");
-
-        }
-
-        static void Ending(int eatCount, float totalScore)
-        {
-            //열매 세 개 먹었을 경우 게임 끝
-            if (eatCount == 3)
-            {
-                Console.WriteLine(totalScore);
-            }
-        }
 
         //Struct & Enum
         enum MazeCompo
@@ -344,20 +297,23 @@ namespace privateConsoleProject
                 }
 
                 //상황판
-                DashBoard(distance);
-                ShowInformation(distance, stepCount / 2, tempScore, player.playerScore);
+                DashBoard dashBoard = new DashBoard();
+                dashBoard.Frame(distance);
+                dashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.playerScore, eatCount);
+                dashBoard.GameRule(distance);
 
 
 
                 //키 입력
                 var keyInput = Console.ReadKey();
 
-
                 // 'R' 키로 맵 재생성
                 if (keyInput.Key == ConsoleKey.R)
                 {
                     StartGame();
+                    return;
                 }
+
                 //상↑
                 if (keyInput.Key == ConsoleKey.UpArrow)
                 {
@@ -486,14 +442,16 @@ namespace privateConsoleProject
                     }
                     stepCount++;
                 }
-
                 //방향키 아닐경우
                 else
                 {
-                    Console.WriteLine($"{stepCount}방향키를 입력해주세요.");
+                    dashBoard.Alert(distance);
                 }
-
-                Ending(eatCount, player.playerScore);
+                //열매를 세 개 다 먹었다면
+                if(eatCount == 3)
+                {
+                    return;
+                }
             }
         }
     }
