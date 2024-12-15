@@ -17,7 +17,7 @@
 //        TileType[,] maze = new TileType[25, 25];
 
 
-//        public void RenderMaze(int distance, Player player, )
+//        public void RenderMaze(int distance, Player player)
 //        {
 //            Console.SetCursorPosition(0, 12);
 //            for (int i = 0; i < distance; i++)

@@ -8,6 +8,7 @@ namespace privateConsoleProject
         {
             Banner();
             StartMenu();
+            StartGame();
         }
         //시작메뉴
         static void StartMenu()
@@ -19,8 +20,6 @@ namespace privateConsoleProject
             Console.WindowHeight = height; //높이
             Console.WindowWidth = width; //넓이
             Console.CursorVisible = false; //커서 지움
-
-            StartGame();
         }
 
         //배너 함수
@@ -45,7 +44,7 @@ namespace privateConsoleProject
 
 
         //Struct & Enum
-        enum MazeCompo
+        public enum MazeCompo
         {
             floor, item, me, wall, staticWall = 99
         }
@@ -224,7 +223,7 @@ namespace privateConsoleProject
             while (stepCount > 0)
             {
 
-                //맵 랜더링(?)
+                //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓맵 랜더링(?)
                 Console.SetCursorPosition(0, 12);
 
                 for (int i = 0; i < distance; i++)
@@ -292,6 +291,8 @@ namespace privateConsoleProject
                     }
                     Console.WriteLine();
                 }
+
+                //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
                 //상황판
                 dashBoard.Frame(distance);
@@ -434,14 +435,9 @@ namespace privateConsoleProject
                     if (maze[player.playerPosY, player.playerPosX].score != 0)
                     {
                         player.playerScore += tempScore;
+                        maze[player.playerPosY, player.playerPosX].score = 0;
                         eatCount++;
                     }
-                    stepCount++;
-                }
-                //방향키 아닐경우
-                else
-                {
-                    dashBoard.Alert(distance);
                 }
                 //열매를 세 개 다 먹었다면
                 if(eatCount == 3)

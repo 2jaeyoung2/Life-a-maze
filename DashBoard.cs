@@ -74,12 +74,5 @@ namespace privateConsoleProject
             Console.SetCursorPosition(howLong * 2 + 5, howLong + 16);
             Console.WriteLine("\t ※ R - 맵 재생성");
         }
-
-        // 키입력 경고
-        public void Alert(int howLong)
-        {
-            Console.SetCursorPosition(howLong * 2 + 5, 21);
-            Console.WriteLine(" ");
-        }
     }
 }
