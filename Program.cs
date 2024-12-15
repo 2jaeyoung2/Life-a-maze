@@ -18,6 +18,7 @@ namespace privateConsoleProject
             //창 크기 조절
             Console.WindowHeight = height; //높이
             Console.WindowWidth = width; //넓이
+            Console.CursorVisible = false; //커서 지움
 
             StartGame();
         }
@@ -71,6 +72,9 @@ namespace privateConsoleProject
             //플레이어 생성
             Player player = new Player();
 
+            //상황판 생성
+            DashBoard dashBoard = new DashBoard();
+
             //미로 크기변수
             int distance = 25; //나중에 태어난 년도 입력받아서 로직에 따라 사이즈 다르게
             TileType[,] maze = new TileType[distance, distance];
@@ -90,7 +94,6 @@ namespace privateConsoleProject
             int floorCount = 0;
             int stepCount = 200;
             int eatCount = 0;
-            int[] howMany = new int[5] { 0, 0, 0, 0, 0 };
 
 
 
@@ -220,10 +223,9 @@ namespace privateConsoleProject
             //플레이
             while (stepCount > 0)
             {
-                
+
                 //맵 랜더링(?)
                 Console.SetCursorPosition(0, 12);
-                Console.CursorVisible = false;
 
                 for (int i = 0; i < distance; i++)
                 {
@@ -262,28 +264,23 @@ namespace privateConsoleProject
                             {
                                 if (maze[i, j].score > 3)
                                 {
-                                    Console.Write("※");
-                                    howMany[0]++;
+                                    Console.Write("Φ");
                                 }
                                 else if (maze[i, j].score > 3)
                                 {
-                                    Console.Write("※");
-                                    howMany[1]++;
+                                    Console.Write("Φ");
                                 }
                                 else if (maze[i, j].score > 2.3)
                                 {
-                                    Console.Write("※");
-                                    howMany[2]++;
+                                    Console.Write("Φ");
                                 }
                                 else if (maze[i, j].score > 1.7)
                                 {
-                                    Console.Write("※");
-                                    howMany[3]++;
+                                    Console.Write("Φ");
                                 }
                                 else
                                 {
-                                    Console.Write("※");
-                                    howMany[4]++;
+                                    Console.Write("Φ");
                                 }
                             }
                         }
@@ -297,7 +294,6 @@ namespace privateConsoleProject
                 }
 
                 //상황판
-                DashBoard dashBoard = new DashBoard();
                 dashBoard.Frame(distance);
                 dashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.playerScore, eatCount);
                 dashBoard.GameRule(distance);

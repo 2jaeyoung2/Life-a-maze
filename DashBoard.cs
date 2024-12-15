@@ -8,7 +8,6 @@ namespace privateConsoleProject
 {
     class DashBoard
     {
-
         // 상황판 프레임
         public void Frame(int howLong)
         {
