@@ -1,4 +1,5 @@
 ﻿using System;
+using static privateConsoleProject.Program;
 namespace privateConsoleProject
 {
     internal class Program
@@ -39,6 +40,54 @@ namespace privateConsoleProject
             Console.WriteLine("{1}{1}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", "■", "　");
             #endregion
             Console.ResetColor();
+        }
+
+        //상황판
+        static void DashBoard(int howLong)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(howLong * 2 + 4, 12);
+            Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            Console.SetCursorPosition(howLong * 2 + 4, 13);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 14);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 15);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 16);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 17);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 18);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 19);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 20);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 21);
+            Console.WriteLine("┃　　　　　　　　　　　　　　┃");
+            Console.SetCursorPosition(howLong * 2 + 4, 22);
+            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            Console.ResetColor();
+        }
+        static void ShowInformation(int howLong, int leftSteps, float thisPoint, float sumPoint)
+        {
+            Console.SetCursorPosition(howLong * 2 + 5, 14);
+            Console.WriteLine($" > 남은 발걸음 : {leftSteps}");
+            Console.SetCursorPosition(howLong * 2 + 5, 16);
+            Console.WriteLine($" > 현재 점수 : {sumPoint}");
+            Console.SetCursorPosition(howLong * 2 + 5, 18);
+            Console.WriteLine($" > 열매 점수 : {thisPoint}");
+
+        }
+
+        static void Ending(int eatCount, float totalScore)
+        {
+            //열매 세 개 먹었을 경우 게임 끝
+            if (eatCount == 3)
+            {
+                Console.WriteLine(totalScore);
+            }
         }
 
         //Struct & Enum
@@ -294,15 +343,15 @@ namespace privateConsoleProject
                     Console.WriteLine();
                 }
 
-                ////상황판
-                //Console.SetCursorPosition(distance * 2 + 4 , 12);
-                //Console.WriteLine("――――――――――――――――");
+                //상황판
+                DashBoard(distance);
+                ShowInformation(distance, stepCount / 2, tempScore, player.playerScore);
+
+
+
                 //키 입력
                 var keyInput = Console.ReadKey();
 
-
-                Console.WriteLine($"{stepCount / 2}걸음");  //※ 걸음음 으로 나오는 오류 수정해야됨
-                Console.WriteLine($"현재 점수 >> {player.playerScore}");
 
                 // 'R' 키로 맵 재생성
                 if (keyInput.Key == ConsoleKey.R)
@@ -324,7 +373,6 @@ namespace privateConsoleProject
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
                             maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
                         else
                         {
@@ -355,7 +403,6 @@ namespace privateConsoleProject
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
                             maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
                         else
                         {
@@ -386,7 +433,6 @@ namespace privateConsoleProject
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
                             maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
                         else
                         {
@@ -416,7 +462,6 @@ namespace privateConsoleProject
                             tempLocation = maze[player.playerPosY, player.playerPosX].type;
                             maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
                             maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
-                            Console.WriteLine($"해당 열매 점수 >> {tempScore}");
                         }
                         else
                         {
@@ -424,7 +469,6 @@ namespace privateConsoleProject
                             maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX + 1];
                             maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
                         }
-                        
                     }
                     else
                     {
@@ -446,23 +490,10 @@ namespace privateConsoleProject
                 //방향키 아닐경우
                 else
                 {
-                    stepCount++;
                     Console.WriteLine($"{stepCount}방향키를 입력해주세요.");
                 }
 
-
-
-                //열매 세 개 먹었을 경우 게임 끝
-                if (eatCount == 3)
-                {
-                    //Ending();
-                    Console.WriteLine("Ending()");
-                    Console.WriteLine(player.playerScore);
-                    if(keyInput.Key == ConsoleKey.Z)
-                    {
-                        break;
-                    }
-                }
+                Ending(eatCount, player.playerScore);
             }
         }
     }
