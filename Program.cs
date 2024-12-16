@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Win32;
 using static privateConsoleProject.Program;
 namespace privateConsoleProject
 {
@@ -10,18 +11,6 @@ namespace privateConsoleProject
             StartMenu();
             StartGame();
         }
-        //시작메뉴
-        static void StartMenu()
-        {
-            int height = 44;
-            int width = 104;
-
-            //창 크기 조절
-            Console.WindowHeight = height; //높이
-            Console.WindowWidth = width; //넓이
-            Console.CursorVisible = false; //커서 지움
-        }
-
         //배너 함수
         static void Banner()
         {
@@ -41,8 +30,17 @@ namespace privateConsoleProject
             #endregion
             Console.ResetColor();
         }
+        //시작메뉴
+        static void StartMenu()
+        {
+            int height = 44;
+            int width = 104;
 
-
+            //창 크기 조절
+            Console.WindowHeight = height; //높이
+            Console.WindowWidth = width; //넓이
+            Console.CursorVisible = false; //커서 지움
+        }
         //Struct & Enum
         public enum MazeCompo
         {
@@ -436,12 +434,14 @@ namespace privateConsoleProject
                     {
                         player.playerScore += tempScore;
                         maze[player.playerPosY, player.playerPosX].score = 0;
+                        tempScore = maze[player.playerPosY, player.playerPosX].score;
                         eatCount++;
                     }
                 }
                 //열매를 세 개 다 먹었다면
-                if(eatCount == 3)
+                if (eatCount == 3)
                 {
+                    //ending();
                     return;
                 }
             }
