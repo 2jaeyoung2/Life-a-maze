@@ -84,10 +84,8 @@ namespace privateConsoleProject
             //랜덤변수
             Random random = new Random();
             int randomWall;
-            //int randomItemPlace;
             Fruit fruit = new Fruit();
             int randomDestroy;
-            float randomScore;
 
             //카운트 변수
             int floorCount = 0;
@@ -445,7 +443,7 @@ namespace privateConsoleProject
                 if (eatCount == 3)
                 {
                     //ending();
-                    return;
+                    //return;
                 }
             }
         }
