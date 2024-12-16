@@ -3,6 +3,22 @@ using Microsoft.Win32;
 using static privateConsoleProject.Program;
 namespace privateConsoleProject
 {
+    //Struct & Enum
+    public enum MazeCompo
+    {
+        floor, item, me, wall, staticWall = 99
+    }
+    public struct TileType
+    {
+        public float type;
+        public float score;
+    }
+    public struct Player
+    {
+        public int playerPosX;
+        public int playerPosY;
+        public float playerScore;
+    }
     internal class Program
     {
         static void Main(string[] args)
@@ -41,22 +57,7 @@ namespace privateConsoleProject
             Console.WindowWidth = width; //넓이
             Console.CursorVisible = false; //커서 지움
         }
-        //Struct & Enum
-        public enum MazeCompo
-        {
-            floor, item, me, wall, staticWall = 99
-        }
-        public struct TileType
-        {
-            public float type;
-            public float score;
-        }
-        public struct Player
-        {
-            public int playerPosX;
-            public int playerPosY;
-            public float playerScore;
-        }
+        
 
         // 거리 계산 메서드
         static double CalculateDistance(int playerPosX, int playerPosY, int x2, int y2)
@@ -83,7 +84,8 @@ namespace privateConsoleProject
             //랜덤변수
             Random random = new Random();
             int randomWall;
-            int randomItemPlace;
+            //int randomItemPlace;
+            Fruit fruit = new Fruit();
             int randomDestroy;
             float randomScore;
 
@@ -91,7 +93,6 @@ namespace privateConsoleProject
             int floorCount = 0;
             int stepCount = 200;
             int eatCount = 0;
-
 
 
             //맵 초기화
@@ -199,23 +200,25 @@ namespace privateConsoleProject
             }
 
             //랜덤 아이템 생성
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
-                {
-                    if (maze[i, j].type == (int)MazeCompo.floor)
-                    {
-                        randomItemPlace = random.Next(0, floorCount / distance);
-                        randomScore = (float)random.Next(50, 351) / 100;
+            //for (int i = 0; i < distance; i++)
+            //{
+            //    for (int j = 0; j < distance; j++)
+            //    {
+            //        if (maze[i, j].type == (int)MazeCompo.floor)
+            //        {
+            //            randomItemPlace = random.Next(0, floorCount / distance);
+            //            randomScore = (float)random.Next(50, 351) / 100;
 
-                        if (randomItemPlace == 0)
-                        {
-                            maze[i, j].type = (int)MazeCompo.item;
-                            maze[i, j].score = randomScore;
-                        }
-                    }
-                }
-            }
+            //            if (randomItemPlace == 0)
+            //            {
+            //                maze[i, j].type = (int)MazeCompo.item;
+            //                maze[i, j].score = randomScore;
+            //            }
+            //        }
+            //    }
+            //}
+            fruit.MakeRandomFruit(distance, floorCount, maze);
+
 
             //플레이
             while (stepCount > 0)
