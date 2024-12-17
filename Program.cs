@@ -10,14 +10,42 @@ namespace privateConsoleProject
     }
     public struct TileType
     {
-        public float type;
-        public float score;
+        float _type;
+        float _score;
+
+        public float Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+
+        public float Score
+        {
+            get { return _score; }
+            set { _score = value; }
+        }
     }
     public struct Player
     {
-        public int playerPosX;
-        public int playerPosY;
-        public float playerScore;
+        int _playerPosX;
+        int _playerPosY;
+        float _playerScore;
+
+        public int PlayerPosX
+        {
+            get { return _playerPosX; }
+            set { _playerPosX = value; }
+        }
+        public int PlayerPosY
+        {
+            get { return _playerPosY; }
+            set { _playerPosY = value; }
+        }
+        public float PlayerScore
+        {
+            get { return _playerScore; }
+            set { _playerScore = value; }
+        }
     }
     internal class Program
     {
@@ -97,9 +125,9 @@ namespace privateConsoleProject
             wall.MakeField(distance, maze);
             
             //플레이어 위치 초기화
-            maze[1, 1].type = (float)MazeCompo.me;
-            player.playerPosX = 1;
-            player.playerPosY = 1;
+            maze[1, 1].Type = (float)MazeCompo.me;
+            player.PlayerPosX = 1;
+            player.PlayerPosY = 1;
 
             // 랜덤 지형 만들기
             wall.MakeRandomWall(distance, maze);
@@ -114,7 +142,7 @@ namespace privateConsoleProject
             {
                 for (int j = 0; j < distance; j++)
                 {
-                    if (maze[i, j].type == (int)MazeCompo.floor)
+                    if (maze[i, j].Type == (int)MazeCompo.floor)
                     {
                         floorCount++;
                     }
@@ -128,81 +156,12 @@ namespace privateConsoleProject
             //플레이
             while (stepCount > 0)
             {
-
-                //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓맵 랜더링(?)
-                Console.SetCursorPosition(0, 12);
-
-                for (int i = 0; i < distance; i++)
-                {
-                    Console.Write("　");
-
-                    for (int j = 0; j < distance; j++)
-                    {
-                        // 시야 제한 로직 추가
-                        double distanceFromPlayer = CalculateDistance(player.playerPosX, player.playerPosY, j, i);
-
-                        if (distanceFromPlayer <= 3) // 반지름 n의 원 내부만 보이도록
-                        {
-                            //길
-                            if (maze[i, j].type == (float)MazeCompo.floor)
-                            {
-                                Console.ForegroundColor = ConsoleColor.DarkGray;
-                                Console.Write("□");
-                                Console.ResetColor();
-                            }
-                            //플레이어
-                            else if (maze[i, j].type == (float)MazeCompo.me)
-                            {
-                                Console.Write("●");
-                                player.playerPosY = i;
-                                player.playerPosX = j;
-                            }
-                            //벽
-                            else if (maze[i, j].type == (float)MazeCompo.wall || maze[i, j].type == (float)MazeCompo.staticWall)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write("▩");
-                                Console.ResetColor();
-                            }
-                            //아이템
-                            else if (maze[i, j].type == (float)MazeCompo.item)
-                            {
-                                if (maze[i, j].score > 3)
-                                {
-                                    Console.Write("Φ");
-                                }
-                                else if (maze[i, j].score > 3)
-                                {
-                                    Console.Write("Φ");
-                                }
-                                else if (maze[i, j].score > 2.3)
-                                {
-                                    Console.Write("Φ");
-                                }
-                                else if (maze[i, j].score > 1.7)
-                                {
-                                    Console.Write("Φ");
-                                }
-                                else
-                                {
-                                    Console.Write("Φ");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // 시야 밖은 공백으로 처리
-                            Console.Write("　");
-                        }
-                    }
-                    Console.WriteLine();
-                }
-
-                //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+                // 맵 랜더링
+                rendering.RenderMaze(distance, ref player, ref maze);
 
                 //상황판
                 dashBoard.Frame(distance);
-                dashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.playerScore, eatCount);
+                dashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
                 dashBoard.GameRule(distance);
 
 
@@ -221,23 +180,23 @@ namespace privateConsoleProject
                 if (keyInput.Key == ConsoleKey.UpArrow)
                 {
                     //만약
-                    if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY - 1, player.playerPosX].type)
+                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY - 1, player.PlayerPosX].Type)
                     {
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.playerPosY - 1, player.playerPosX].type == (int)MazeCompo.item)
+                        if (maze[player.PlayerPosY - 1, player.PlayerPosX].Type == (int)MazeCompo.item)
                         {
                             //열매 점수 임시보관
-                            tempScore = maze[player.playerPosY - 1, player.playerPosX].score;
+                            tempScore = maze[player.PlayerPosY - 1, player.PlayerPosX].Score;
 
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
-                            maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY - 1, player.playerPosX];
-                            maze[player.playerPosY - 1, player.playerPosX].type = tempLocation;
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY - 1, player.PlayerPosX];
+                            maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
                         }
                     }
                     else //못간다면
@@ -251,23 +210,23 @@ namespace privateConsoleProject
                 else if (keyInput.Key == ConsoleKey.DownArrow)
                 {
                     //만약
-                    if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY + 1, player.playerPosX].type)
+                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY + 1, player.PlayerPosX].Type)
                     {
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.playerPosY + 1, player.playerPosX].type == (int)MazeCompo.item)
+                        if (maze[player.PlayerPosY + 1, player.PlayerPosX].Type == (int)MazeCompo.item)
                         {
                             //열매 점수 임시보관
-                            tempScore = maze[player.playerPosY + 1, player.playerPosX].score;
+                            tempScore = maze[player.PlayerPosY + 1, player.PlayerPosX].Score;
 
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
-                            maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY + 1, player.PlayerPosX].Type = tempLocation;
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY + 1, player.playerPosX];
-                            maze[player.playerPosY + 1, player.playerPosX].type = tempLocation;
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY + 1, player.PlayerPosX];
+                            maze[player.PlayerPosY + 1, player.PlayerPosX].Type = tempLocation;
                         }
                     }
                     else
@@ -281,23 +240,23 @@ namespace privateConsoleProject
                 else if (keyInput.Key == ConsoleKey.LeftArrow)
                 {
                     //만약
-                    if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY, player.playerPosX - 1].type)
+                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX - 1].Type)
                     {
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.playerPosY, player.playerPosX - 1].type == (int)MazeCompo.item)
+                        if (maze[player.PlayerPosY, player.PlayerPosX - 1].Type == (int)MazeCompo.item)
                         {
                             //열매 점수 임시보관
-                            tempScore = maze[player.playerPosY, player.playerPosX - 1].score;
+                            tempScore = maze[player.PlayerPosY, player.PlayerPosX - 1].Score;
 
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
-                            maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX - 1].Type = tempLocation;
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX - 1];
-                            maze[player.playerPosY, player.playerPosX - 1].type = tempLocation;
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY, player.PlayerPosX - 1];
+                            maze[player.PlayerPosY, player.PlayerPosX - 1].Type = tempLocation;
                         }
                     }
                     else
@@ -310,23 +269,23 @@ namespace privateConsoleProject
                 //우→
                 else if (keyInput.Key == ConsoleKey.RightArrow)
                 {
-                    if (maze[player.playerPosY, player.playerPosX].type > maze[player.playerPosY, player.playerPosX + 1].type)
+                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX + 1].Type)
                     {
                         //이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.playerPosY, player.playerPosX + 1].type == (int)MazeCompo.item)
+                        if (maze[player.PlayerPosY, player.PlayerPosX + 1].Type == (int)MazeCompo.item)
                         {
                             //열매 점수 임시보관
-                            tempScore = maze[player.playerPosY, player.playerPosX + 1].score;
+                            tempScore = maze[player.PlayerPosY, player.PlayerPosX + 1].Score;
 
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
-                            maze[player.playerPosY, player.playerPosX].type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX + 1].Type = tempLocation;
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
-                            tempLocation = maze[player.playerPosY, player.playerPosX].type;
-                            maze[player.playerPosY, player.playerPosX] = maze[player.playerPosY, player.playerPosX + 1];
-                            maze[player.playerPosY, player.playerPosX + 1].type = tempLocation;
+                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
+                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY, player.PlayerPosX + 1];
+                            maze[player.PlayerPosY, player.PlayerPosX + 1].Type = tempLocation;
                         }
                     }
                     else
@@ -338,11 +297,11 @@ namespace privateConsoleProject
                 //'z'일경우 먹음
                 else if (keyInput.Key == ConsoleKey.Z)
                 {
-                    if (maze[player.playerPosY, player.playerPosX].score != 0)
+                    if (maze[player.PlayerPosY, player.PlayerPosX].Score != 0)
                     {
-                        player.playerScore += tempScore;
-                        maze[player.playerPosY, player.playerPosX].score = 0;
-                        tempScore = maze[player.playerPosY, player.playerPosX].score;
+                        player.PlayerScore += tempScore;
+                        maze[player.PlayerPosY, player.PlayerPosX].Score = 0;
+                        tempScore = maze[player.PlayerPosY, player.PlayerPosX].Score;
                         eatCount++;
                     }
                 }

@@ -17,15 +17,15 @@ namespace privateConsoleProject
             {
                 for (int j = 0; j < distance; j++)
                 {
-                    if (maze[i, j].type == (int)MazeCompo.floor)
+                    if (maze[i, j].Type == (int)MazeCompo.floor)
                     {
                         randomItemPlace = random.Next(0, floorCount / distance);
                         randomScore = (float)random.Next(50, 351) / 100;
 
                         if (randomItemPlace == 0)
                         {
-                            maze[i, j].type = (int)MazeCompo.item;
-                            maze[i, j].score = randomScore;
+                            maze[i, j].Type = (int)MazeCompo.item;
+                            maze[i, j].Score = randomScore;
                         }
                     }
                 }
