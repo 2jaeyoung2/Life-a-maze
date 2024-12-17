@@ -3,7 +3,6 @@ using Microsoft.Win32;
 using static privateConsoleProject.Program;
 namespace privateConsoleProject
 {
-    //Struct & Enum
     public enum MazeCompo
     {
         floor, item, me, wall, staticWall = 99
@@ -55,10 +54,10 @@ namespace privateConsoleProject
             StartMenu();
             StartGame();
         }
-        //배너 함수
+        // 배너 함수
         static void Banner()
         {
-            //위치 및 색상 조절
+            // 위치 및 색상 조절
             Console.ForegroundColor = ConsoleColor.DarkGray;
             #region 배너           
             Console.WriteLine();
@@ -74,48 +73,41 @@ namespace privateConsoleProject
             #endregion
             Console.ResetColor();
         }
-        //시작메뉴
+        // 시작메뉴
         static void StartMenu()
         {
             int height = 44;
             int width = 104;
 
-            //창 크기 조절
-            Console.WindowHeight = height; //높이
-            Console.WindowWidth = width; //넓이
-            Console.CursorVisible = false; //커서 지움
-        }
-        
-
-        // 거리 계산 메서드
-        static double CalculateDistance(int playerPosX, int playerPosY, int x2, int y2)
-        {
-            return Math.Sqrt(Math.Pow(playerPosX - x2, 2) + Math.Pow(playerPosY - y2, 2));
+            // 창 크기 조절
+            Console.WindowHeight = height; // 높이
+            Console.WindowWidth = width; // 넓이
+            Console.CursorVisible = false; // 커서 지움
         }
 
+        // 게임 시작
         static void StartGame()
         {
-            //플레이어 생성
+            // 플레이어 생성
             Player player = new Player();
 
-            //상황판 생성
+            // 상황판 생성
             DashBoard dashBoard = new DashBoard();
 
-            //미로 변수
+            // 미로 변수
             int distance = 25;
             Wall wall = new Wall();
             TileType[,] maze = new TileType[distance, distance];
             Rendering rendering = new Rendering();
 
-            //임시보관 변수
-            float tempLocation = 0;
+            // 임시보관 변수
+            float tempLocation;
             float tempScore = 0;
 
-            //랜덤변수
-            Random random = new Random();
+            // 열매 생성
             Fruit fruit = new Fruit();
 
-            //카운트 변수
+            // 카운트 변수
             int floorCount = 0;
             int stepCount = 200;
             int eatCount = 0;
@@ -124,7 +116,7 @@ namespace privateConsoleProject
             // 필드 생성
             wall.MakeField(distance, maze);
             
-            //플레이어 위치 초기화
+            // 플레이어 위치 초기화
             maze[1, 1].Type = (float)MazeCompo.me;
             player.PlayerPosX = 1;
             player.PlayerPosY = 1;
@@ -137,7 +129,7 @@ namespace privateConsoleProject
             wall.EliminateIsolation(distance, maze);
             
             
-            //바닥 개수 세기
+            // 바닥 개수 세기
             for (int i = 0; i < distance; i++)
             {
                 for (int j = 0; j < distance; j++)
@@ -149,24 +141,24 @@ namespace privateConsoleProject
                 }
             }
 
-            //랜덤 아이템 생성
+            // 랜덤 아이템 생성
             fruit.MakeRandomFruit(distance, floorCount, maze);
 
 
-            //플레이
+            // 플레이
             while (stepCount > 0)
             {
                 // 맵 랜더링
                 rendering.RenderMaze(distance, ref player, ref maze);
 
-                //상황판
+                // 상황판
                 dashBoard.Frame(distance);
                 dashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
                 dashBoard.GameRule(distance);
 
 
 
-                //키 입력
+                // 키 입력
                 var keyInput = Console.ReadKey();
 
                 // 'R' 키로 맵 재생성
@@ -176,21 +168,21 @@ namespace privateConsoleProject
                     return;
                 }
 
-                //상↑
+                // 상↑
                 if (keyInput.Key == ConsoleKey.UpArrow)
                 {
-                    //만약
+                    // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY - 1, player.PlayerPosX].Type)
                     {
-                        //이동할 위치가 item이면 이 전 타일은 floor로 강제
+                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.PlayerPosY - 1, player.PlayerPosX].Type == (int)MazeCompo.item)
                         {
-                            //열매 점수 임시보관
+                            // 열매 점수 임시보관
                             tempScore = maze[player.PlayerPosY - 1, player.PlayerPosX].Score;
 
                             tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
                             maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
@@ -199,28 +191,28 @@ namespace privateConsoleProject
                             maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
                         }
                     }
-                    else //못간다면
+                    else // 못간다면
                     {
-                        stepCount++; //카운트 안내려감
+                        stepCount++; // 카운트 안내려감
                     }
                     stepCount--;
                 }
 
-                //하↓
+                // 하↓
                 else if (keyInput.Key == ConsoleKey.DownArrow)
                 {
-                    //만약
+                    // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY + 1, player.PlayerPosX].Type)
                     {
-                        //이동할 위치가 item이면 이 전 타일은 floor로 강제
+                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.PlayerPosY + 1, player.PlayerPosX].Type == (int)MazeCompo.item)
                         {
-                            //열매 점수 임시보관
+                            // 열매 점수 임시보관
                             tempScore = maze[player.PlayerPosY + 1, player.PlayerPosX].Score;
 
                             tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
                             maze[player.PlayerPosY + 1, player.PlayerPosX].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
@@ -236,21 +228,21 @@ namespace privateConsoleProject
                     stepCount--;
                 }
 
-                //좌←
+                // 좌←
                 else if (keyInput.Key == ConsoleKey.LeftArrow)
                 {
-                    //만약
+                    // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX - 1].Type)
                     {
-                        //이동할 위치가 item이면 이 전 타일은 floor로 강제
+                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.PlayerPosY, player.PlayerPosX - 1].Type == (int)MazeCompo.item)
                         {
-                            //열매 점수 임시보관
+                            // 열매 점수 임시보관
                             tempScore = maze[player.PlayerPosY, player.PlayerPosX - 1].Score;
 
                             tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
                             maze[player.PlayerPosY, player.PlayerPosX - 1].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
@@ -266,20 +258,20 @@ namespace privateConsoleProject
                     stepCount--;
                 }
 
-                //우→
+                // 우→
                 else if (keyInput.Key == ConsoleKey.RightArrow)
                 {
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX + 1].Type)
                     {
-                        //이동할 위치가 item이면 이 전 타일은 floor로 강제
+                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
                         if (maze[player.PlayerPosY, player.PlayerPosX + 1].Type == (int)MazeCompo.item)
                         {
-                            //열매 점수 임시보관
+                            // 열매 점수 임시보관
                             tempScore = maze[player.PlayerPosY, player.PlayerPosX + 1].Score;
 
                             tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
                             maze[player.PlayerPosY, player.PlayerPosX + 1].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; //이동 전 타일도 바닥으로 바꿨음
+                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
                         }
                         else
                         {
@@ -294,7 +286,7 @@ namespace privateConsoleProject
                     }
                     stepCount--;
                 }
-                //'z'일경우 먹음
+                // 'z'일경우 먹음
                 else if (keyInput.Key == ConsoleKey.Z)
                 {
                     if (maze[player.PlayerPosY, player.PlayerPosX].Score != 0)
@@ -305,11 +297,11 @@ namespace privateConsoleProject
                         eatCount++;
                     }
                 }
-                //열매를 세 개 다 먹었다면
+                // 열매를 세 개 다 먹었다면
                 if (eatCount == 3)
                 {
-                    //ending();
-                    //return;
+                    // ending();
+                    // return;
                 }
             }
         }
