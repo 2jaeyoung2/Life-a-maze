@@ -73,9 +73,11 @@ namespace privateConsoleProject
             //상황판 생성
             DashBoard dashBoard = new DashBoard();
 
-            //미로 크기변수
-            int distance = 25; //나중에 태어난 년도 입력받아서 로직에 따라 사이즈 다르게
+            //미로 변수
+            int distance = 25;
+            Wall wall = new Wall();
             TileType[,] maze = new TileType[distance, distance];
+            Rendering rendering = new Rendering();
 
             //임시보관 변수
             float tempLocation = 0;
@@ -83,9 +85,7 @@ namespace privateConsoleProject
 
             //랜덤변수
             Random random = new Random();
-            int randomWall;
             Fruit fruit = new Fruit();
-            int randomDestroy;
 
             //카운트 변수
             int floorCount = 0;
@@ -93,97 +93,21 @@ namespace privateConsoleProject
             int eatCount = 0;
 
 
-            //맵 초기화
-            ////외곽 생성
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
-                {
-                    maze[i, j].type = (float)MazeCompo.staticWall;
-                }
-            }
-            ////나머지 바닥 생성
-            for (int i = 1; i < distance - 1; i++)
-            {
-                for (int j = 1; j < distance - 1; j++)
-                {
-                    maze[i, j].type = (float)MazeCompo.floor;
-                    maze[i, j].score = 0;
-                }
-            }
-
+            // 필드 생성
+            wall.MakeField(distance, maze);
+            
             //플레이어 위치 초기화
             maze[1, 1].type = (float)MazeCompo.me;
             player.playerPosX = 1;
             player.playerPosY = 1;
 
-            #region 미로말고 맵 랜덤생성
+            // 랜덤 지형 만들기
+            wall.MakeRandomWall(distance, maze);
 
-            //랜덤 벽 생성
-            for (int i = 0; i < distance; i++)
-            {
-                for (int j = 0; j < distance; j++)
-                {
-                    if (maze[i, j].type == (int)MazeCompo.floor)
-                    {
-                        randomWall = random.Next(0, 4); //벽 밀도 조절
-                        if (randomWall == 2)
-                        {
-                            maze[i, j].type = (int)MazeCompo.wall;
-                        }
-                    }
-                }
-            }
 
             // 고립지역 없애기
-            for (int i = 0; i < distance - 1; i++)
-            {
-                for (int j = 0; j < distance - 1; j++)
-                {
-                    //만약 어느 지점에서
-                    if (maze[i, j].type == (int)MazeCompo.floor)
-                    {
-                        //주변이 벽으로 막혀있다면
-                        if (maze[i + 1, j].type >= (int)MazeCompo.wall && maze[i - 1, j].type >= (int)MazeCompo.wall && maze[i, j + 1].type >= (int)MazeCompo.wall && maze[i, j - 1].type >= (int)MazeCompo.wall)
-                        {
-                            randomDestroy = random.Next(0, 4);
-                            //랜덤으로 뚫어라
-                            switch (randomDestroy)
-                            {
-                                case 0:
-                                    if (maze[i + 1, j].type != (int)MazeCompo.staticWall)
-                                    {
-                                        maze[i + 1, j].type = (int)MazeCompo.floor;
-                                    }
-                                    break;
-                                case 1:
-                                    maze[i - 1, j].type = (int)MazeCompo.floor;
-                                    if (maze[i - 1, j].type != (int)MazeCompo.staticWall)
-                                    {
-                                        maze[i - 1, j].type = (int)MazeCompo.floor;
-                                    }
-                                    break;
-                                case 2:
-                                    maze[i, j + 1].type = (int)MazeCompo.floor;
-                                    if (maze[i, j + 1].type != (int)MazeCompo.staticWall)
-                                    {
-                                        maze[i, j + 1].type = (int)MazeCompo.floor;
-                                    }
-                                    break;
-                                case 3:
-                                    maze[i, j - 1].type = (int)MazeCompo.floor;
-                                    if (maze[i, j - 1].type != (int)MazeCompo.staticWall)
-                                    {
-                                        maze[i, j - 1].type = (int)MazeCompo.floor;
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
+            wall.EliminateIsolation(distance, maze);
             
-            #endregion
             
             //바닥 개수 세기
             for (int i = 0; i < distance; i++)
@@ -198,23 +122,6 @@ namespace privateConsoleProject
             }
 
             //랜덤 아이템 생성
-            //for (int i = 0; i < distance; i++)
-            //{
-            //    for (int j = 0; j < distance; j++)
-            //    {
-            //        if (maze[i, j].type == (int)MazeCompo.floor)
-            //        {
-            //            randomItemPlace = random.Next(0, floorCount / distance);
-            //            randomScore = (float)random.Next(50, 351) / 100;
-
-            //            if (randomItemPlace == 0)
-            //            {
-            //                maze[i, j].type = (int)MazeCompo.item;
-            //                maze[i, j].score = randomScore;
-            //            }
-            //        }
-            //    }
-            //}
             fruit.MakeRandomFruit(distance, floorCount, maze);
 
 
