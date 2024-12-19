@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace privateConsoleProject
 {
-    class DashBoard
+    static class DashBoard
     {
         // 상황판 프레임
-        public void Frame(int howLong)
+        static public void InGameFrame(int howLong)
         {
             //상단 : 실상황
             Console.ForegroundColor = ConsoleColor.Red;
@@ -52,7 +52,7 @@ namespace privateConsoleProject
         }
 
         // 정보
-        public void ShowInformation(int howLong, int leftSteps, float thisPoint, float sumPoint, int eatCount)
+        static public void ShowInformation(int howLong, int leftSteps, float thisPoint, float sumPoint, int eatCount)
         {
             Console.SetCursorPosition(howLong * 2 + 5, 14);
             Console.WriteLine($"\t > 남은 발걸음 : {leftSteps}");
@@ -65,7 +65,7 @@ namespace privateConsoleProject
         }
 
         // 조작법
-        public void GameRule(int howLong)
+        static public void GameRule(int howLong)
         {
             Console.SetCursorPosition(howLong * 2 + 5, howLong + 12);
             Console.WriteLine("\t ※ 방향키로 이동");

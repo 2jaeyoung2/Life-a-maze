@@ -11,7 +11,23 @@ namespace privateConsoleProject
         Random random = new Random();
         int randomItemPlace;
         float randomScore;
-        public void MakeRandomFruit(int distance, int floorCount, TileType[,] maze)
+        int floorCount = 0;
+        
+        public void FloorCount(int distance, TileType[,] maze)
+        {
+            for (int i = 0; i < distance; i++)
+            {
+                for (int j = 0; j < distance; j++)
+                {
+                    if (maze[i, j].Type == (int)MazeCompo.floor)
+                    {
+                        floorCount++;
+                    }
+                }
+            }
+        }
+
+        public void MakeRandomFruit(int distance, TileType[,] maze)
         {
             for (int i = 0; i < distance; i++)
             {
