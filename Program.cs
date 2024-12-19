@@ -52,33 +52,30 @@ namespace privateConsoleProject
     {
         static void Main(string[] args)
         {
-            bool wantToPlay = true;
             GameManager.Banner();
             GameManager.Setting();
+            GameManager.SelectMenu();
 
-            while (wantToPlay == true)
+            while (true)
             {
-                GameManager.SelectMenu();
-
                 var keyInput = Console.ReadKey(true);
 
                 if (keyInput.Key == ConsoleKey.Z)
                 {
                     GameManager.Erase();
-                    StartGame(ref wantToPlay);
+                    StartGame();
+                    return;
                 }
                 else if (keyInput.Key == ConsoleKey.Q)
                 {
-                    wantToPlay = false;
+                    GameManager.Ending();
+                    return;
                 }
             }
-
-            GameManager.Ending();
-
         }
         
         // 게임 시작
-        static void StartGame(ref bool wantToPlay)
+        static void StartGame()
         {
             // 플레이어 생성
             Player player = new Player();
@@ -141,7 +138,7 @@ namespace privateConsoleProject
                 // 'R' 키로 맵 재생성
                 if (keyInput.Key == ConsoleKey.R)
                 {
-                    StartGame(ref wantToPlay);
+                    StartGame();
                     return;
                 }
 
@@ -296,7 +293,7 @@ namespace privateConsoleProject
                     // ending(); 
                     Rendering.ShowSteps(posX, posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
-                    wantToPlay = false;
+                    return;
                 }
             }
         }
