@@ -24,29 +24,16 @@ namespace privateConsoleProject
             Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ");
             Console.ResetColor();
 
-            //중앙 : 멘트
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(howLong * 2 + 4, 23);
-            Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ");
-            for (int i = 24; i < 35; i++)
-            {
-                Console.SetCursorPosition(howLong * 2 + 4, i);
-                Console.WriteLine("┃　　　　　　　　　　　　　　┃ ");
-            }
-            Console.SetCursorPosition(howLong * 2 + 4, 35);
-            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ");
-            Console.ResetColor();
-
             //하단 : 규칙
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(howLong * 2 + 4, howLong + 11);
+            Console.SetCursorPosition(howLong * 2 + 4, 23);
             Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━┓ ");
-            for (int i = 12; i < 17; i++)
+            for (int i = 24; i < 29; i++)
             {
-                Console.SetCursorPosition(howLong * 2 + 4, howLong + i);
+                Console.SetCursorPosition(howLong * 2 + 4, i);
                 Console.WriteLine("┃　　　　　　　　　　┃ ");
             }
-            Console.SetCursorPosition(howLong * 2 + 4, howLong + 17);
+            Console.SetCursorPosition(howLong * 2 + 4, 29);
             Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━┛ ");
             Console.ResetColor();
         }
@@ -67,12 +54,14 @@ namespace privateConsoleProject
         // 요약
         static public void Recap(int howLong, int stepCount, float sumPoint, int eatCount)
         {
+            Console.SetCursorPosition(howLong * 2 + 5, 12);
+            Console.WriteLine("\t\t < Recap > ");
             Console.SetCursorPosition(howLong * 2 + 5, 14);
             Console.WriteLine($"\t 당신은 총 {100 - stepCount}걸음을 걸으며");
             Console.SetCursorPosition(howLong * 2 + 5, 16);
             Console.WriteLine($"\t {eatCount}개의 기회를 붙잡아");
             Console.SetCursorPosition(howLong * 2 + 5, 18);
-            Console.WriteLine($"\t {sumPoint}점을 얻으셨습니다.");
+            Console.WriteLine($"\t {sumPoint * 100 / 100}점을 얻으셨습니다.");
             Console.SetCursorPosition(howLong * 2 + 5, 20);
             Console.WriteLine($"\t 후회없는 선택을 하셨나요?");
         }
@@ -80,11 +69,11 @@ namespace privateConsoleProject
         // 조작법
         static public void GameRule(int howLong)
         {
-            Console.SetCursorPosition(howLong * 2 + 5, howLong + 12);
+            Console.SetCursorPosition(howLong * 2 + 5, 24);
             Console.WriteLine("\t ※ 방향키로 이동");
-            Console.SetCursorPosition(howLong * 2 + 5, howLong + 14);
+            Console.SetCursorPosition(howLong * 2 + 5, 26);
             Console.WriteLine("\t ※ Z - 열매 먹기");
-            Console.SetCursorPosition(howLong * 2 + 5, howLong + 16);
+            Console.SetCursorPosition(howLong * 2 + 5, 28);
             Console.WriteLine("\t ※ R - 맵 재생성");
         }
     }
