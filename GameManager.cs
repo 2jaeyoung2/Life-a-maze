@@ -40,28 +40,19 @@ namespace privateConsoleProject
         // 선택
         static public void SelectMenu()
         {
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight - 12);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2 + 1);
             Console.WriteLine("> 시작(Z) <");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight - 10);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2 + 3);
             Console.WriteLine("> 종료(Q) <");
         }
 
-        // 지우기(야매)
-        static public void Erase()
-        {
-            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 12);
-            Console.WriteLine("　　　　　");
-            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 10);
-            Console.WriteLine("　　　　　");
-        }
-
         // 끄기
-        static public void Ending()
+        static public void QuitGame()
         {
             Console.Clear();
-            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight);
-            Console.WriteLine("끝");
-            Console.SetCursorPosition(Console.WindowWidth, Console.WindowHeight);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 1, Console.WindowHeight / 2);
+            Console.WriteLine("END");
+            Console.ForegroundColor = ConsoleColor.Black;
         }
     }
 }

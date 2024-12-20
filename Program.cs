@@ -50,32 +50,47 @@ namespace privateConsoleProject
     // ▼ 메인 ▼
     internal class Program
     {
+        static bool again = false;
+        static bool gameStart = true;
+
         static void Main(string[] args)
         {
+            ConsoleKeyInfo keyInput;
+
             GameManager.Banner();
             GameManager.Setting();
             GameManager.SelectMenu();
 
-            while (true)
+            while (gameStart)
             {
-                var keyInput = Console.ReadKey(true);
-
-                if (keyInput.Key == ConsoleKey.Z)
+                if(again == false)
                 {
-                    GameManager.Erase();
-                    StartGame();
-                    return;
+                    keyInput = Console.ReadKey(true);
+                    again = true;
+                    if (keyInput.Key == ConsoleKey.Z)
+                    {
+                        Console.Clear();
+                        GameManager.Banner();
+                        StartGame(ref gameStart);
+                    }
+                    else if (keyInput.Key == ConsoleKey.Q)
+                    {
+                        return;
+                    }
                 }
-                else if (keyInput.Key == ConsoleKey.Q)
+                else
                 {
-                    GameManager.Ending();
-                    return;
+                    Console.Clear();
+                    GameManager.Banner();
+                    StartGame(ref gameStart);
                 }
             }
+
+            //GameManager.QuitGame();
         }
         
         // 게임 시작
-        static void StartGame()
+        static bool StartGame(ref bool reStart)
         {
             // 플레이어 생성
             Player player = new Player();
@@ -118,6 +133,9 @@ namespace privateConsoleProject
             // 6. 랜덤 아이템 생성
             fruit.MakeRandomFruit(distance, maze);
 
+            // 상황판
+            DashBoard.InGameFrame(distance);
+            DashBoard.GameRule(distance);
 
             // 플레이
             while (stepCount > 0)
@@ -125,12 +143,9 @@ namespace privateConsoleProject
                 // 맵 랜더링
                 Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
-                // 상황판
-                DashBoard.InGameFrame(distance);
+                // 현재 정보
                 DashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
-                DashBoard.GameRule(distance);
-
-
+                
 
                 // 키 입력
                 var keyInput = Console.ReadKey(true);
@@ -138,8 +153,8 @@ namespace privateConsoleProject
                 // 'R' 키로 맵 재생성
                 if (keyInput.Key == ConsoleKey.R)
                 {
-                    StartGame();
-                    return;
+                    reStart = true;
+                    return reStart;
                 }
 
                 // 상↑
@@ -290,8 +305,6 @@ namespace privateConsoleProject
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
-                    // ending(); 
-
                     Rendering.ShowSteps(posX, posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
@@ -299,6 +312,8 @@ namespace privateConsoleProject
                 }
             }
             Console.SetCursorPosition(0, Console.WindowHeight);
+            reStart = false;
+            return reStart;
         }
     }
 }
