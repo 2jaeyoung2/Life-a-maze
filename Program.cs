@@ -50,9 +50,6 @@ namespace privateConsoleProject
     // ▼ 메인 ▼
     internal class Program
     {
-        static bool again = false;
-        static bool gameStart = true;
-
         static void Main(string[] args)
         {
             ConsoleKeyInfo keyInput;
@@ -61,17 +58,17 @@ namespace privateConsoleProject
             GameManager.Setting();
             GameManager.SelectMenu();
 
-            while (gameStart)
+            while (StaticFields.gameStart)
             {
-                if(again == false)
+                if(StaticFields.again == false)
                 {
                     keyInput = Console.ReadKey(true);
-                    again = true;
+                    StaticFields.again = true;
                     if (keyInput.Key == ConsoleKey.Z)
                     {
                         Console.Clear();
                         GameManager.Banner();
-                        StartGame(ref gameStart);
+                        StartGame(ref StaticFields.gameStart);
                     }
                     else if (keyInput.Key == ConsoleKey.Q)
                     {
@@ -82,10 +79,12 @@ namespace privateConsoleProject
                 {
                     Console.Clear();
                     GameManager.Banner();
-                    StartGame(ref gameStart);
+                    StartGame(ref StaticFields.gameStart);
                 }
             }
-
+            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("끝");
             //GameManager.QuitGame();
         }
         
@@ -131,7 +130,7 @@ namespace privateConsoleProject
             fruit.FloorCount(distance, maze);
 
             // 6. 랜덤 아이템 생성
-            fruit.MakeRandomFruit(distance, maze);
+            StaticFields.itemCount = fruit.MakeRandomFruit(distance, maze);
 
             // 상황판
             DashBoard.InGameFrame(distance);

@@ -11,7 +11,7 @@ namespace privateConsoleProject
         // 창 세팅
         static public void Setting()
         {
-            int height = 44;
+            int height = 38;
             int width = 104;
 
             // 창 크기 조절
