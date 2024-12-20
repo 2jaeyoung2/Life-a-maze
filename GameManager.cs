@@ -37,28 +37,6 @@ namespace privateConsoleProject
             #endregion
         }
 
-        // 열매 이미지
-        static public void Fruit(int howLong)
-        {
-            int i = 26;
-            Console.SetCursorPosition(howLong * 2 + 10, i);
-            Console.WriteLine("{0}{0}{0}{0}{0}{3}{0}{0}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{2}{2}{0}{3}{0}{0}{0}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{0}{2}{2}{3}{1}{1}{0}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{1}{1}{1}{3}{1}{1}{1}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{1}{1}{1}{1}{1}{1}{1}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{1}{1}{1}{1}{1}{1}{1}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{1}{1}{1}{1}{1}{1}{1}", "　", "■", "▧", "▥");
-            Console.SetCursorPosition(howLong * 2 + 10, i++);
-            Console.WriteLine("{0}{0}{1}{1}{1}{1}{1}{0}", "　", "■", "▧", "▥");
-        }
-
         // 선택
         static public void SelectMenu()
         {
