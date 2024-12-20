@@ -129,6 +129,7 @@ namespace privateConsoleProject
                 DashBoard.InGameFrame(distance);
                 DashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
                 DashBoard.GameRule(distance);
+                GameManager.Fruit(distance);
 
 
 
