@@ -64,6 +64,19 @@ namespace privateConsoleProject
             Console.WriteLine($"\t > 현재 점수 : {sumPoint}");
         }
 
+        // 요약
+        static public void Recap(int howLong, int stepCount, float sumPoint, int eatCount)
+        {
+            Console.SetCursorPosition(howLong * 2 + 5, 14);
+            Console.WriteLine($"\t 당신은 총 {100 - stepCount}걸음을 걸으며");
+            Console.SetCursorPosition(howLong * 2 + 5, 16);
+            Console.WriteLine($"\t {eatCount}개의 기회를 붙잡아");
+            Console.SetCursorPosition(howLong * 2 + 5, 18);
+            Console.WriteLine($"\t {sumPoint}점을 얻으셨습니다.");
+            Console.SetCursorPosition(howLong * 2 + 5, 20);
+            Console.WriteLine($"\t 후회없는 선택을 하셨나요?");
+        }
+
         // 조작법
         static public void GameRule(int howLong)
         {

@@ -46,7 +46,7 @@ namespace privateConsoleProject
             Console.WriteLine("> 종료(Q) <");
         }
 
-        // 지우기
+        // 지우기(야매)
         static public void Erase()
         {
             Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 12);
@@ -59,7 +59,7 @@ namespace privateConsoleProject
         static public void Ending()
         {
             Console.Clear();
-            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight);
             Console.WriteLine("끝");
             Console.SetCursorPosition(Console.WindowWidth, Console.WindowHeight);
         }

@@ -47,7 +47,7 @@ namespace privateConsoleProject
             set { _playerScore = value; }
         }
     }
-
+    // ▼ 메인 ▼
     internal class Program
     {
         static void Main(string[] args)
@@ -291,11 +291,14 @@ namespace privateConsoleProject
                 if (eatCount == 3 || stepCount == 0)
                 {
                     // ending(); 
+
                     Rendering.ShowSteps(posX, posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
-                    return;
+                    DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
+                    break;
                 }
             }
+            Console.SetCursorPosition(0, Console.WindowHeight);
         }
     }
 }
