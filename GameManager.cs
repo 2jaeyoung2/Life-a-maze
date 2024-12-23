@@ -53,7 +53,7 @@ namespace privateConsoleProject
         {
             Console.Clear();
             Console.SetCursorPosition(Console.WindowWidth / 2 - 1, Console.WindowHeight / 2);
-            Console.WriteLine("END");
+            Console.WriteLine($"{StaticFields.playCount} END");
             Console.ForegroundColor = ConsoleColor.Black;
         }
 

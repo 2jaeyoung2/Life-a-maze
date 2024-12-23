@@ -40,15 +40,35 @@ namespace privateConsoleProject
             // 하단 : 기록
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.SetCursorPosition(howLong * 2 + 4, 30);
-            Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━┓ ");
+            Console.WriteLine("┏━━━━━━━━━━┓ ");
             for (int i = 31; i < 36; i++)
+            {
+                Console.SetCursorPosition(howLong * 2 + 4, i);
+                Console.WriteLine("┃　　　　　┃ ");
+            }
+            Console.SetCursorPosition(howLong * 2 + 4, 36);
+            Console.WriteLine("┗━━━━━━━━━━┛ ");
+            Console.ResetColor();
+        }
+
+        static public void ReOrFin(int howLong)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(howLong * 2 + 4, 23);
+            Console.WriteLine("┏━━━━━━━━━━━━━━━━━━━━┓ ");
+            for (int i = 24; i < 29; i++)
             {
                 Console.SetCursorPosition(howLong * 2 + 4, i);
                 Console.WriteLine("┃　　　　　　　　　　┃ ");
             }
-            Console.SetCursorPosition(howLong * 2 + 4, 36);
+            Console.SetCursorPosition(howLong * 2 + 4, 29);
             Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━┛ ");
             Console.ResetColor();
+
+            Console.SetCursorPosition(howLong * 2 + 7, 25);
+            Console.WriteLine("※ 다시하기(R)");
+            Console.SetCursorPosition(howLong * 2 + 7, 27);
+            Console.WriteLine("※ 종료(Q)");
         }
 
         // 정보
@@ -97,11 +117,18 @@ namespace privateConsoleProject
         {
             GameManager.RecordManager();
             float max = StaticFields.myRecords.Max();
+
             Console.SetCursorPosition(howLong * 2 + 7, 31);
-            Console.WriteLine($"{max} < Max");
-            for(int i = 0; i < 3; i++)
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($"{max}");
+            Console.ResetColor();
+            Console.WriteLine(" Max");
+            Console.SetCursorPosition(howLong * 2 + 7, 32);
+            Console.WriteLine("\bㅡ");
+
+            for (int i = 0; i < 3; i++)
             {
-                Console.SetCursorPosition(howLong * 2 + 7, 32 + i);
+                Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
                 Console.WriteLine($"{StaticFields.myRecords.ElementAt(i)}");
             }
         }
