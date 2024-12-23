@@ -129,7 +129,7 @@ namespace privateConsoleProject
             for (int i = 0; i < 3; i++)
             {
                 Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
-                Console.WriteLine($"{StaticFields.myRecords.ElementAt(i)}");
+                Console.WriteLine($"{StaticFields.myRecords.ElementAt(i):F2}");
             }
         }
     }
