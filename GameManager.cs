@@ -37,7 +37,7 @@ namespace privateConsoleProject
             #endregion
         }
 
-        // 선택
+        // 시작화면
         static public void SelectMenu()
         {
             Console.SetCursorPosition(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 + 1);

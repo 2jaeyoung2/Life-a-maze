@@ -52,8 +52,6 @@ namespace privateConsoleProject
     {
         static void Main(string[] args)
         {
-            
-
             GameManager.Banner();
             GameManager.Setting();
             GameManager.SelectMenu();
@@ -84,8 +82,9 @@ namespace privateConsoleProject
                     GameManager.Banner();
                     StartGame(ref StaticFields.gameStart);
                 }
-                ++StaticFields.playCount;
+                StaticFields.playCount++;
             }
+
             GameManager.QuitGame();
         }
 
@@ -106,10 +105,6 @@ namespace privateConsoleProject
             // 카운트 변수
             int stepCount = 200;
             int eatCount = 0;
-
-            // 발자국 큐
-            //Queue<int> posX = new Queue<int>();
-            //Queue<int> posY = new Queue<int>();
 
             // 1. 필드 생성
             wall.MakeField(distance, maze);
@@ -136,11 +131,12 @@ namespace privateConsoleProject
             DashBoard.GameRule(distance);
             DashBoard.ShowRecords(distance);
 
+            // 맵 랜더링
+            Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
+
             // 플레이
             while (stepCount > 0)
             {
-                // 맵 랜더링
-                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
                 // 현재 정보
                 DashBoard.ShowInformation(distance, stepCount / 2, StaticFields.tempScore, player.PlayerScore, eatCount);
@@ -151,8 +147,7 @@ namespace privateConsoleProject
                 // 'R' 키로 맵 재생성
                 if (StaticFields.keyInput.Key == ConsoleKey.R)
                 {
-                    reStart = true;
-                    return reStart;
+                    return reStart = true;
                 }
 
                 // 상↑
@@ -178,11 +173,14 @@ namespace privateConsoleProject
                 {
                     PlayerAction.MoveRight(ref player, ref maze, ref stepCount);
                 }
-                // 'z'일경우 먹음
+
+                // 아이템 획득 z
                 else if (StaticFields.keyInput.Key == ConsoleKey.Z)
                 {
                     PlayerAction.EatFruit(ref player, ref maze, ref eatCount);
                 }
+
+                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
@@ -194,21 +192,16 @@ namespace privateConsoleProject
 
                     // 다시하기 or 종료 안내창
                     DashBoard.ReOrFin(distance);
-
                     StaticFields.keyInput = Console.ReadKey(true);
 
-                    if (StaticFields.keyInput.Key == ConsoleKey.R)
+                    if (StaticFields.keyInput.Key == ConsoleKey.R) // 다시하기
                     {
-                        reStart = true;
-                        return reStart;
+                        return reStart = true;
                     }
-                    else if (StaticFields.keyInput.Key == ConsoleKey.Q)
+                    else if (StaticFields.keyInput.Key == ConsoleKey.Q) // 종료
                     {
+                        //GameManager.Ending();
                         break;
-                    }
-                    else
-                    {
-                        //예외처리
                     }
                 }
             }
