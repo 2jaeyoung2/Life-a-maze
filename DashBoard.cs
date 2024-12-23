@@ -61,7 +61,7 @@ namespace privateConsoleProject
             Console.SetCursorPosition(howLong * 2 + 7, 16);
             Console.WriteLine($"{eatCount}개의 기회를 붙잡아");
             Console.SetCursorPosition(howLong * 2 + 7, 18);
-            Console.WriteLine($"{sumPoint * 100 / 100}점을 얻으셨습니다.");
+            Console.WriteLine($"{sumPoint:F2}점을 얻으셨습니다.");
             Console.SetCursorPosition(howLong * 2 + 7, 20);
             Console.WriteLine($"후회없는 선택을 하셨나요?");
         }
@@ -76,7 +76,7 @@ namespace privateConsoleProject
             Console.SetCursorPosition(howLong * 2 + 7, 28);
             Console.WriteLine("※ R - 맵 재생성");
             Console.SetCursorPosition(Console.WindowWidth / 2 + 3, 36);
-            Console.WriteLine("※ R - 맵 재생성");
+            Console.WriteLine("※ Φ [최소 0.50 - 최대 3.50]");
         }
     }
 }

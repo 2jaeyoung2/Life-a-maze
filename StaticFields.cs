@@ -10,6 +10,5 @@ namespace privateConsoleProject
     {
         static public bool again = false;
         static public bool gameStart = true;
-        static public int[] itemCount = new int[5];
     }
 }

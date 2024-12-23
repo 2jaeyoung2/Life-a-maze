@@ -40,9 +40,11 @@ namespace privateConsoleProject
         // 선택
         static public void SelectMenu()
         {
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2 + 1);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 + 1);
+            Console.WriteLine("\"일생에 찾아오는 세 번의 기회\"");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 6, Console.WindowHeight / 2 + 10);
             Console.WriteLine("> 시작(Z) <");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2 + 3);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 6, Console.WindowHeight / 2 + 12);
             Console.WriteLine("> 종료(Q) <");
         }
 

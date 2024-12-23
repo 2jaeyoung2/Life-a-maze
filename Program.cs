@@ -137,7 +137,7 @@ namespace privateConsoleProject
             fruit.FloorCount(distance, maze);
 
             // 6. 랜덤 아이템 생성
-            StaticFields.itemCount = fruit.MakeRandomFruit(distance, maze);
+            fruit.MakeRandomFruit(distance, maze);
 
             // 상황판
             DashBoard.InGameFrame(distance);
