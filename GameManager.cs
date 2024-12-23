@@ -56,5 +56,15 @@ namespace privateConsoleProject
             Console.WriteLine("END");
             Console.ForegroundColor = ConsoleColor.Black;
         }
+
+        // 기록 관리
+        static public void RecordManager()
+        {
+            // 기록은 제일 최신 세 개만 가지고 있게 함.
+            if(StaticFields.myRecords.Count > 3)
+            {
+                StaticFields.myRecords.Dequeue();
+            }
+        }
     }
 }

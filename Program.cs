@@ -142,6 +142,7 @@ namespace privateConsoleProject
             // 상황판
             DashBoard.InGameFrame(distance);
             DashBoard.GameRule(distance);
+            DashBoard.ShowRecords(distance);
 
             // 플레이
             while (stepCount > 0)
@@ -313,6 +314,7 @@ namespace privateConsoleProject
                     Rendering.ShowSteps(posX, posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
+                    StaticFields.myRecords.Enqueue(player.PlayerScore);
                     break;
                 }
             }
