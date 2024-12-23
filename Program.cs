@@ -61,7 +61,7 @@ namespace privateConsoleProject
             while (StaticFields.gameStart)
             {
                 // V 첫 게임
-                if(StaticFields.again == false)
+                if (StaticFields.again == false)
                 {
                     keyInput = Console.ReadKey(true);
                     if (keyInput.Key == ConsoleKey.Z)
@@ -73,7 +73,8 @@ namespace privateConsoleProject
                     }
                     else if (keyInput.Key == ConsoleKey.Q)
                     {
-                        return;
+                        StaticFields.playCount--;
+                        StaticFields.gameStart = false;
                     }
                 }
                 // V 맵 재생성 후
@@ -83,13 +84,12 @@ namespace privateConsoleProject
                     GameManager.Banner();
                     StartGame(ref StaticFields.gameStart);
                 }
+                ++StaticFields.playCount;
             }
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("끝");
+            //Console.Clear();
             GameManager.QuitGame();
         }
-        
+
         // 게임 시작
         static bool StartGame(ref bool reStart)
         {
@@ -121,7 +121,7 @@ namespace privateConsoleProject
 
             // 1. 필드 생성
             wall.MakeField(distance, maze);
-            
+
             // 2. 플레이어 위치 초기화
             maze[1, 1].Type = (float)MazeCompo.me;
             player.PlayerPosX = 1;
@@ -142,6 +142,7 @@ namespace privateConsoleProject
             // 상황판
             DashBoard.InGameFrame(distance);
             DashBoard.GameRule(distance);
+            DashBoard.ShowRecords(distance);
 
             // 플레이
             while (stepCount > 0)
@@ -313,10 +314,28 @@ namespace privateConsoleProject
                     Rendering.ShowSteps(posX, posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
-                    break;
+                    StaticFields.myRecords.Enqueue(player.PlayerScore);
+
+                    // 다시하기 or 종료 안내창
+                    DashBoard.ReOrFin(distance);
+
+                    keyInput = Console.ReadKey(true);
+
+                    if (keyInput.Key == ConsoleKey.R)
+                    {
+                        reStart = true;
+                        return reStart;
+                    }
+                    else if (keyInput.Key == ConsoleKey.Q)
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
-            Console.SetCursorPosition(0, Console.WindowHeight);
             reStart = false;
             return reStart;
         }

@@ -10,5 +10,7 @@ namespace privateConsoleProject
     {
         static public bool again = false;
         static public bool gameStart = true;
+        static public Queue<float> myRecords = new Queue<float>(new[] { 0f, 0f, 0f });
+        static public int playCount = 0;
     }
 }

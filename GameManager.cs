@@ -53,8 +53,18 @@ namespace privateConsoleProject
         {
             Console.Clear();
             Console.SetCursorPosition(Console.WindowWidth / 2 - 1, Console.WindowHeight / 2);
-            Console.WriteLine("END");
+            Console.WriteLine($"{StaticFields.playCount} END");
             Console.ForegroundColor = ConsoleColor.Black;
+        }
+
+        // 기록 관리
+        static public void RecordManager()
+        {
+            // 기록은 제일 최신 세 개만 가지고 있게 함.
+            if(StaticFields.myRecords.Count > 3)
+            {
+                StaticFields.myRecords.Dequeue();
+            }
         }
     }
 }
