@@ -40,14 +40,14 @@ namespace privateConsoleProject
             // 하단 : 기록
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.SetCursorPosition(howLong * 2 + 4, 30);
-            Console.WriteLine("┏━━━━━━━━━━┓ ");
+            Console.WriteLine("┏━━━━━━━━━━━━┓ ");
             for (int i = 31; i < 36; i++)
             {
                 Console.SetCursorPosition(howLong * 2 + 4, i);
-                Console.WriteLine("┃　　　　　┃ ");
+                Console.WriteLine("┃　　　　　　┃ ");
             }
             Console.SetCursorPosition(howLong * 2 + 4, 36);
-            Console.WriteLine("┗━━━━━━━━━━┛ ");
+            Console.WriteLine("┗━━━━━━━━━━━━┛ ");
             Console.ResetColor();
         }
 
@@ -120,7 +120,7 @@ namespace privateConsoleProject
 
             Console.SetCursorPosition(howLong * 2 + 7, 31);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"{max}");
+            Console.Write($"{max:F2}");
             Console.ResetColor();
             Console.WriteLine(" Max");
             Console.SetCursorPosition(howLong * 2 + 7, 32);

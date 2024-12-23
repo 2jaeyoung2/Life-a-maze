@@ -86,7 +86,6 @@ namespace privateConsoleProject
                 }
                 ++StaticFields.playCount;
             }
-            //Console.Clear();
             GameManager.QuitGame();
         }
 
@@ -101,10 +100,6 @@ namespace privateConsoleProject
             Wall wall = new Wall();
             TileType[,] maze = new TileType[distance, distance];
 
-            // 임시보관 변수
-            float tempLocation;
-            float tempScore = 0;
-
             // 열매 생성
             Fruit fruit = new Fruit();
 
@@ -113,8 +108,8 @@ namespace privateConsoleProject
             int eatCount = 0;
 
             // 발자국 큐
-            Queue<int> posX = new Queue<int>();
-            Queue<int> posY = new Queue<int>();
+            //Queue<int> posX = new Queue<int>();
+            //Queue<int> posY = new Queue<int>();
 
             // 1. 필드 생성
             wall.MakeField(distance, maze);
@@ -148,7 +143,7 @@ namespace privateConsoleProject
                 Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
                 // 현재 정보
-                DashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
+                DashBoard.ShowInformation(distance, stepCount / 2, StaticFields.tempScore, player.PlayerScore, eatCount);
 
                 // 키 입력
                 StaticFields.keyInput = Console.ReadKey(true);
@@ -163,153 +158,36 @@ namespace privateConsoleProject
                 // 상↑
                 if (StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
-                    // 만약
-                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY - 1, player.PlayerPosX].Type)
-                    {
-                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.PlayerPosY - 1, player.PlayerPosX].Type == (int)MazeCompo.item)
-                        {
-                            // 열매 점수 임시보관
-                            tempScore = maze[player.PlayerPosY - 1, player.PlayerPosX].Score;
-
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                        else
-                        {
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY - 1, player.PlayerPosX];
-                            maze[player.PlayerPosY - 1, player.PlayerPosX].Type = tempLocation;
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                    }
-                    else // 못간다면
-                    {
-                        stepCount++; // 카운트 안내려감
-                    }
-                    stepCount--;
+                    PlayerAction.MoveUp(ref player, ref maze, ref stepCount);
                 }
 
                 // 하↓
                 else if (StaticFields.keyInput.Key == ConsoleKey.DownArrow)
                 {
-                    // 만약
-                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY + 1, player.PlayerPosX].Type)
-                    {
-                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.PlayerPosY + 1, player.PlayerPosX].Type == (int)MazeCompo.item)
-                        {
-                            // 열매 점수 임시보관
-                            tempScore = maze[player.PlayerPosY + 1, player.PlayerPosX].Score;
-
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY + 1, player.PlayerPosX].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                        else
-                        {
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY + 1, player.PlayerPosX];
-                            maze[player.PlayerPosY + 1, player.PlayerPosX].Type = tempLocation;
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                    }
-                    else
-                    {
-                        stepCount++;
-                    }
-                    stepCount--;
+                    PlayerAction.MoveDown(ref player, ref maze, ref stepCount);
                 }
 
                 // 좌←
                 else if (StaticFields.keyInput.Key == ConsoleKey.LeftArrow)
                 {
-                    // 만약
-                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX - 1].Type)
-                    {
-                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.PlayerPosY, player.PlayerPosX - 1].Type == (int)MazeCompo.item)
-                        {
-                            // 열매 점수 임시보관
-                            tempScore = maze[player.PlayerPosY, player.PlayerPosX - 1].Score;
-
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX - 1].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                        else
-                        {
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY, player.PlayerPosX - 1];
-                            maze[player.PlayerPosY, player.PlayerPosX - 1].Type = tempLocation;
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                    }
-                    else
-                    {
-                        stepCount++;
-                    }
-                    stepCount--;
+                    PlayerAction.MoveLeft(ref player, ref maze, ref stepCount);
                 }
 
                 // 우→
                 else if (StaticFields.keyInput.Key == ConsoleKey.RightArrow)
                 {
-                    if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX + 1].Type)
-                    {
-                        // 이동할 위치가 item이면 이 전 타일은 floor로 강제
-                        if (maze[player.PlayerPosY, player.PlayerPosX + 1].Type == (int)MazeCompo.item)
-                        {
-                            // 열매 점수 임시보관
-                            tempScore = maze[player.PlayerPosY, player.PlayerPosX + 1].Score;
-
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX + 1].Type = tempLocation;
-                            maze[player.PlayerPosY, player.PlayerPosX].Type = (int)MazeCompo.floor; // 이동 전 타일도 바닥으로 바꿨음
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                        else
-                        {
-                            tempLocation = maze[player.PlayerPosY, player.PlayerPosX].Type;
-                            maze[player.PlayerPosY, player.PlayerPosX] = maze[player.PlayerPosY, player.PlayerPosX + 1];
-                            maze[player.PlayerPosY, player.PlayerPosX + 1].Type = tempLocation;
-                            posX.Enqueue(player.PlayerPosX);
-                            posY.Enqueue(player.PlayerPosY);
-                        }
-                    }
-                    else
-                    {
-                        stepCount++;
-                    }
-                    stepCount--;
+                    PlayerAction.MoveRight(ref player, ref maze, ref stepCount);
                 }
                 // 'z'일경우 먹음
                 else if (StaticFields.keyInput.Key == ConsoleKey.Z)
                 {
-                    if (maze[player.PlayerPosY, player.PlayerPosX].Score != 0)
-                    {
-                        player.PlayerScore += tempScore;
-                        maze[player.PlayerPosY, player.PlayerPosX].Score = 0;
-                        tempScore = maze[player.PlayerPosY, player.PlayerPosX].Score;
-                        eatCount++;
-                    }
+                    PlayerAction.EatFruit(ref player, ref maze, ref eatCount);
                 }
 
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
-                    Rendering.ShowSteps(posX, posY, ref maze);
+                    Rendering.ShowSteps(StaticFields.posX, StaticFields.posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
                     StaticFields.myRecords.Enqueue(player.PlayerScore);
@@ -330,7 +208,7 @@ namespace privateConsoleProject
                     }
                     else
                     {
-
+                        //예외처리
                     }
                 }
             }

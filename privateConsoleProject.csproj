@@ -46,6 +46,7 @@
     <Compile Include="DashBoard.cs" />
     <Compile Include="Fruit.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="PlayerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering.cs" />
