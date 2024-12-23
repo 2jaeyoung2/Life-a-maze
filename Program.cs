@@ -52,7 +52,7 @@ namespace privateConsoleProject
     {
         static void Main(string[] args)
         {
-            ConsoleKeyInfo keyInput;
+            
 
             GameManager.Banner();
             GameManager.Setting();
@@ -63,15 +63,15 @@ namespace privateConsoleProject
                 // V 첫 게임
                 if (StaticFields.again == false)
                 {
-                    keyInput = Console.ReadKey(true);
-                    if (keyInput.Key == ConsoleKey.Z)
+                    StaticFields.keyInput = Console.ReadKey(true);
+                    if (StaticFields.keyInput.Key == ConsoleKey.Z)
                     {
                         Console.Clear();
                         GameManager.Banner();
                         StartGame(ref StaticFields.gameStart);
                         StaticFields.again = true;
                     }
-                    else if (keyInput.Key == ConsoleKey.Q)
+                    else if (StaticFields.keyInput.Key == ConsoleKey.Q)
                     {
                         StaticFields.playCount--;
                         StaticFields.gameStart = false;
@@ -93,9 +93,6 @@ namespace privateConsoleProject
         // 게임 시작
         static bool StartGame(ref bool reStart)
         {
-            // 키 입력
-            ConsoleKeyInfo keyInput;
-
             // 플레이어 생성
             Player player = new Player();
 
@@ -154,17 +151,17 @@ namespace privateConsoleProject
                 DashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
 
                 // 키 입력
-                keyInput = Console.ReadKey(true);
+                StaticFields.keyInput = Console.ReadKey(true);
 
                 // 'R' 키로 맵 재생성
-                if (keyInput.Key == ConsoleKey.R)
+                if (StaticFields.keyInput.Key == ConsoleKey.R)
                 {
                     reStart = true;
                     return reStart;
                 }
 
                 // 상↑
-                if (keyInput.Key == ConsoleKey.UpArrow)
+                if (StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
                     // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY - 1, player.PlayerPosX].Type)
@@ -198,7 +195,7 @@ namespace privateConsoleProject
                 }
 
                 // 하↓
-                else if (keyInput.Key == ConsoleKey.DownArrow)
+                else if (StaticFields.keyInput.Key == ConsoleKey.DownArrow)
                 {
                     // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY + 1, player.PlayerPosX].Type)
@@ -232,7 +229,7 @@ namespace privateConsoleProject
                 }
 
                 // 좌←
-                else if (keyInput.Key == ConsoleKey.LeftArrow)
+                else if (StaticFields.keyInput.Key == ConsoleKey.LeftArrow)
                 {
                     // 만약
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX - 1].Type)
@@ -266,7 +263,7 @@ namespace privateConsoleProject
                 }
 
                 // 우→
-                else if (keyInput.Key == ConsoleKey.RightArrow)
+                else if (StaticFields.keyInput.Key == ConsoleKey.RightArrow)
                 {
                     if (maze[player.PlayerPosY, player.PlayerPosX].Type > maze[player.PlayerPosY, player.PlayerPosX + 1].Type)
                     {
@@ -298,7 +295,7 @@ namespace privateConsoleProject
                     stepCount--;
                 }
                 // 'z'일경우 먹음
-                else if (keyInput.Key == ConsoleKey.Z)
+                else if (StaticFields.keyInput.Key == ConsoleKey.Z)
                 {
                     if (maze[player.PlayerPosY, player.PlayerPosX].Score != 0)
                     {
@@ -308,6 +305,7 @@ namespace privateConsoleProject
                         eatCount++;
                     }
                 }
+
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
@@ -319,14 +317,14 @@ namespace privateConsoleProject
                     // 다시하기 or 종료 안내창
                     DashBoard.ReOrFin(distance);
 
-                    keyInput = Console.ReadKey(true);
+                    StaticFields.keyInput = Console.ReadKey(true);
 
-                    if (keyInput.Key == ConsoleKey.R)
+                    if (StaticFields.keyInput.Key == ConsoleKey.R)
                     {
                         reStart = true;
                         return reStart;
                     }
-                    else if (keyInput.Key == ConsoleKey.Q)
+                    else if (StaticFields.keyInput.Key == ConsoleKey.Q)
                     {
                         break;
                     }
