@@ -60,21 +60,23 @@ namespace privateConsoleProject
 
             while (StaticFields.gameStart)
             {
+                // V 첫 게임
                 if(StaticFields.again == false)
                 {
                     keyInput = Console.ReadKey(true);
-                    StaticFields.again = true;
                     if (keyInput.Key == ConsoleKey.Z)
                     {
                         Console.Clear();
                         GameManager.Banner();
                         StartGame(ref StaticFields.gameStart);
+                        StaticFields.again = true;
                     }
                     else if (keyInput.Key == ConsoleKey.Q)
                     {
                         return;
                     }
                 }
+                // V 맵 재생성 후
                 else
                 {
                     Console.Clear();
@@ -85,16 +87,19 @@ namespace privateConsoleProject
             Console.ReadLine();
             Console.Clear();
             Console.WriteLine("끝");
-            //GameManager.QuitGame();
+            GameManager.QuitGame();
         }
         
         // 게임 시작
         static bool StartGame(ref bool reStart)
         {
+            // 키 입력
+            ConsoleKeyInfo keyInput;
+
             // 플레이어 생성
             Player player = new Player();
 
-            // 미로 변수
+            // 미로 변수 & 객체 생성
             int distance = 25;
             Wall wall = new Wall();
             TileType[,] maze = new TileType[distance, distance];
@@ -109,6 +114,8 @@ namespace privateConsoleProject
             // 카운트 변수
             int stepCount = 200;
             int eatCount = 0;
+
+            // 발자국 큐
             Queue<int> posX = new Queue<int>();
             Queue<int> posY = new Queue<int>();
 
@@ -144,10 +151,9 @@ namespace privateConsoleProject
 
                 // 현재 정보
                 DashBoard.ShowInformation(distance, stepCount / 2, tempScore, player.PlayerScore, eatCount);
-                
 
                 // 키 입력
-                var keyInput = Console.ReadKey(true);
+                keyInput = Console.ReadKey(true);
 
                 // 'R' 키로 맵 재생성
                 if (keyInput.Key == ConsoleKey.R)
