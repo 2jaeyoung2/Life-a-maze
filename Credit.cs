@@ -19,7 +19,7 @@ namespace privateConsoleProject
                 { i++, "떠나간 기회는 다시 돌아오지 않습니다." },
                 { i++, "Made by Lee Jaeyoung" },
                 { i++, "12/3 - 12/26(Average: 1H per Day)" },
-                { i++, "Visual Studio<C#>, Github" },
+                { i++, "Visual Studio<C#> & Github" },
                 { i++, "Life is amazing." }
             };
         }

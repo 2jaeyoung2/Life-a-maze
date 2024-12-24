@@ -22,6 +22,7 @@ namespace privateConsoleProject
 
         static public float tempScore = 0;
         static public float tempLocation;
+        static public float tempHighestScore = 0;
 
         static public Queue<int> posX = new Queue<int>();
         static public Queue<int> posY = new Queue<int>();

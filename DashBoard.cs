@@ -41,14 +41,16 @@ namespace privateConsoleProject
             // 하단 : 기록
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.SetCursorPosition(howLong * 2 + 4, 30);
-            Console.WriteLine("┏━━━━━━━━━━━━┓ ");
+            Console.WriteLine("┏━━━━━━━━┓ ");
             for (int i = 31; i < 36; i++)
             {
                 Console.SetCursorPosition(howLong * 2 + 4, i);
-                Console.WriteLine("┃　　　　　　┃ ");
+                Console.WriteLine("┃　　　　┃ ");
             }
+            Console.SetCursorPosition(howLong * 2 + 5, 32);
+            Console.WriteLine("━━━━━━━━");
             Console.SetCursorPosition(howLong * 2 + 4, 36);
-            Console.WriteLine("┗━━━━━━━━━━━━┛ ");
+            Console.WriteLine("┗━━━━━━━━┛ ");
             Console.ResetColor();
         }
 
@@ -119,14 +121,21 @@ namespace privateConsoleProject
             if(StaticFields.recordMemo.Count != 0)
             {
                 float max = StaticFields.recordMemo.Max();
+                
+                if(max > 0 && max > StaticFields.tempHighestScore)
+                {
+                    StaticFields.tempHighestScore = max;
+                    GameManager.Blink(howLong, max);
+                }
+                else
+                {
+                    Console.SetCursorPosition(howLong * 2 + 7, 31);
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write($"{max:F2}");
+                }
 
-                Console.SetCursorPosition(howLong * 2 + 7, 31);
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{max:F2}");
                 Console.ResetColor();
-                Console.WriteLine(" Max");
-                Console.SetCursorPosition(howLong * 2 + 7, 32);
-                Console.WriteLine("\bㅡ");
+                
 
                 for (int i = 0; i < 3; i++)
                 {

@@ -46,6 +46,22 @@ namespace privateConsoleProject
             Console.WriteLine("> 종료(Q) <");
         }
 
+        // 깜빡임
+        static public void Blink(int howLong, float max)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                Console.SetCursorPosition(howLong * 2 + 7, 31);
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"{max:F2}");
+                Thread.Sleep(400);
+                Console.SetCursorPosition(howLong * 2 + 7, 31);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write($"{max:F2}");
+                Thread.Sleep(400);
+            }
+        }
+
         // 엔딩
         static public void Ending()
         {
@@ -63,6 +79,7 @@ namespace privateConsoleProject
             Banner();
             Console.ForegroundColor = ConsoleColor.Black;
         }
+
         // 게임 시작
         static public bool StartGame(ref bool reStart)
         {
@@ -80,7 +97,7 @@ namespace privateConsoleProject
             // 초기 세팅
             int stepCount = 200;
             int eatCount = 0;
-            StaticFields.isRorQ = false;
+            StaticFields.isRorQ = false; // 새 게임 시작될 때 마다 false
 
             // 1. 필드 생성
             wall.MakeField(distance, maze);
@@ -170,6 +187,9 @@ namespace privateConsoleProject
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
                     StaticFields.recordMemo.Add(player.PlayerScore);
+
+                    // 기록 업데이트
+                    DashBoard.ShowLastThreeRecords(distance);
 
                     // 다시하기 or 종료 안내창
                     DashBoard.ReOrFin(distance);
