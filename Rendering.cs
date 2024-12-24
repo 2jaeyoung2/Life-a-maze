@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static privateConsoleProject.Program;
 
@@ -107,8 +108,8 @@ namespace privateConsoleProject
                     }
                     else if (maze[i, j].Type == (float)MazeCompo.step)
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write("回");
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("□");
                         Console.ResetColor();
                     }
                     //플레이어
@@ -132,6 +133,21 @@ namespace privateConsoleProject
                     }
                 }
                 Console.WriteLine();
+            }
+
+
+        }
+
+        // 발자국 남기기
+        static public void RenderSteps(int distance, Player player, TileType[,] maze)
+        {
+            while(StaticFields.posX.Count > 0)
+            {
+                Console.SetCursorPosition(2 + StaticFields.posX.Dequeue() * 2, 12 + StaticFields.posY.Dequeue());
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Thread.Sleep(150);
+                Console.Write("回");
+                Console.ResetColor();
             }
         }
 

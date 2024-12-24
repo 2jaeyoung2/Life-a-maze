@@ -183,8 +183,9 @@ namespace privateConsoleProject
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
-                    Rendering.ShowSteps(StaticFields.posX, StaticFields.posY, ref maze);
+                    //Rendering.ShowSteps(StaticFields.posX, StaticFields.posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
+                    Rendering.RenderSteps(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
                     StaticFields.recordMemo.Add(player.PlayerScore);
 

@@ -136,7 +136,6 @@ namespace privateConsoleProject
 
                 Console.ResetColor();
                 
-
                 for (int i = 0; i < 3; i++)
                 {
                     Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
