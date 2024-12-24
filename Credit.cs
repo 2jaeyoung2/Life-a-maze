@@ -14,7 +14,7 @@ namespace privateConsoleProject
             StaticFields.creditList = new Dictionary<int, string>
             {
                 { 1, $"당신은 {playCount} 번의 삶을 경험했습니다." },
-                { 2, "하지만 당신의 인생은 한 번 뿐입니다." },
+                { 2, "당신의 인생은 한 번 뿐입니다." },
                 { 3, "떠나간 기회는 다시 돌아오지 않습니다." },
                 { 4, "Made by Lee Jaeyoung" },
                 { 5, "Visual Studio<C#>, Github" },
@@ -28,15 +28,23 @@ namespace privateConsoleProject
 
             for (int i = 0; i < StaticFields.creditList.Count; i++)
             {
-                ColorChange(StaticFields.creditList, i);
+                int mentPosX = StaticFields.random.Next(-18, 5);
+                int mentPosY = StaticFields.random.Next(-6, 7);
+
+                if(i != StaticFields.creditList.Count - 1)
+                {
+                    ColorChange(StaticFields.creditList, i, mentPosX, mentPosY);
+                }
+                else
+                {
+                    Thread.Sleep(2000);
+                    ColorChange(StaticFields.creditList, StaticFields.creditList.Count - 1, -8, 0);
+                }                
             }
         }
 
-        static public void ColorChange(Dictionary<int,String> list, int where)
+        static public void ColorChange(Dictionary<int,String> list, int where, int mentPosX, int mentPosY)
         {
-            int mentPosX = StaticFields.random.Next(-25, 26);
-            int mentPosY = StaticFields.random.Next(-6, 7);
-
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(list.ElementAt(where).Value);
