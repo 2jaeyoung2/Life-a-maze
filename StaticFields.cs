@@ -16,6 +16,8 @@ namespace privateConsoleProject
         static public bool gameStart = true;
         static public bool isRorQ;
 
+        static public int height = 38;
+        static public int width = 104;
         static public int playCount = 0;
 
         static public float tempScore = 0;

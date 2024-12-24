@@ -85,10 +85,8 @@ namespace privateConsoleProject
                     GameManager.StartGame(ref StaticFields.gameStart);
                 }
             }
-            StaticFields.keyInput = Console.ReadKey(true);
             GameManager.QuitGame();
         }
-
         
     }
 }

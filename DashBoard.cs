@@ -78,11 +78,11 @@ namespace privateConsoleProject
             Console.SetCursorPosition(howLong * 2 + 7, 14);
             Console.WriteLine($"> 남은 발걸음 : {leftSteps} ");
             Console.SetCursorPosition(howLong * 2 + 7, 16);
-            Console.WriteLine($"> 열매 점수 : {thisPoint}");
+            Console.WriteLine($"> 열매 점수 : {thisPoint:F2}");
             Console.SetCursorPosition(howLong * 2 + 7, 18);
             Console.WriteLine($"> 열매 개수 : {eatCount}/3");
             Console.SetCursorPosition(howLong * 2 + 7, 20);
-            Console.WriteLine($"> 현재 점수 : {sumPoint}");
+            Console.WriteLine($"> 현재 점수 : {sumPoint:F2}");
         }
 
         // 요약

@@ -12,12 +12,9 @@ namespace privateConsoleProject
         // 창 세팅
         static public void Setting()
         {
-            int height = 38;
-            int width = 104;
-
             // 창 크기 조절
-            Console.WindowHeight = height; // 높이
-            Console.WindowWidth = width; // 넓이
+            Console.WindowHeight = StaticFields.height; // 높이
+            Console.WindowWidth = StaticFields.width; // 넓이
             Console.CursorVisible = false; // 커서 지움
         }
 
@@ -56,16 +53,14 @@ namespace privateConsoleProject
             DashBoard.ShowAllRecords();
             Console.Clear();
             Credit.ShowCredit();
-            Console.SetCursorPosition(0, Console.WindowHeight / 2 - 5);
-            Banner();
         }
 
         // 끄기
         static public void QuitGame()
         {
             Console.Clear();
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 1, Console.WindowHeight / 2);
-            Console.WriteLine($"END");
+            Console.SetCursorPosition(0, Console.WindowHeight / 2 - 5);
+            Banner();
             Console.ForegroundColor = ConsoleColor.Black;
         }
         // 게임 시작
@@ -191,7 +186,7 @@ namespace privateConsoleProject
                         else if (StaticFields.keyInput.Key == ConsoleKey.Q) // 종료
                         {
                             StaticFields.isRorQ = true;
-                            GameManager.Ending();
+                            Ending();
                         }
                     }
                     break;
