@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using static privateConsoleProject.Program;
 namespace privateConsoleProject
 {
-    public enum MazeCompo
+    enum MazeCompo
     {
         floor, item, me, step, wall, staticWall = 99
     }
-    public struct TileType
+    struct TileType
     {
         float _type;
         float _score;
@@ -25,7 +27,7 @@ namespace privateConsoleProject
             set { _score = value; }
         }
     }
-    public struct Player
+    struct Player
     {
         int _playerPosX;
         int _playerPosY;
@@ -102,9 +104,10 @@ namespace privateConsoleProject
             // 열매 생성
             Fruit fruit = new Fruit();
 
-            // 카운트 변수
+            // 초기 세팅
             int stepCount = 200;
             int eatCount = 0;
+            StaticFields.isRorQ = false;
 
             // 1. 필드 생성
             wall.MakeField(distance, maze);
@@ -188,21 +191,27 @@ namespace privateConsoleProject
                     Rendering.ShowSteps(StaticFields.posX, StaticFields.posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
-                    StaticFields.myRecords.Enqueue(player.PlayerScore);
+                    StaticFields.recordMemo.Add(player.PlayerScore);
 
                     // 다시하기 or 종료 안내창
                     DashBoard.ReOrFin(distance);
-                    StaticFields.keyInput = Console.ReadKey(true);
 
-                    if (StaticFields.keyInput.Key == ConsoleKey.R) // 다시하기
+                    while (!StaticFields.isRorQ)
                     {
-                        return reStart = true;
+                        StaticFields.keyInput = Console.ReadKey(true);
+
+                        if (StaticFields.keyInput.Key == ConsoleKey.R) // 다시하기
+                        {
+                            StaticFields.isRorQ = true;
+                            return reStart = true;
+                        }
+                        else if (StaticFields.keyInput.Key == ConsoleKey.Q) // 종료
+                        {
+                            StaticFields.isRorQ = true;
+                            GameManager.Ending();
+                        }
                     }
-                    else if (StaticFields.keyInput.Key == ConsoleKey.Q) // 종료
-                    {
-                        //GameManager.Ending();
-                        break;
-                    }
+                    break;
                 }
             }
             reStart = false;

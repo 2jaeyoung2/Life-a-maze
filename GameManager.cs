@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace privateConsoleProject
@@ -48,23 +49,27 @@ namespace privateConsoleProject
             Console.WriteLine("> 종료(Q) <");
         }
 
+
+        // 엔딩
+        static public void Ending()
+        {
+            Console.Clear();
+            // 점수 회상
+            for(int i = 3; i < StaticFields.recordMemo.Count; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2);
+                Console.WriteLine($"{StaticFields.recordMemo.ElementAt(i):F2}");
+                Thread.Sleep(800);
+            }
+        }
+
         // 끄기
         static public void QuitGame()
         {
             Console.Clear();
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 1, Console.WindowHeight / 2);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2);
             Console.WriteLine($"{StaticFields.playCount} END");
             Console.ForegroundColor = ConsoleColor.Black;
-        }
-
-        // 기록 관리
-        static public void RecordManager()
-        {
-            // 기록은 제일 최신 세 개만 가지고 있게 함.
-            if(StaticFields.myRecords.Count > 3)
-            {
-                StaticFields.myRecords.Dequeue();
-            }
         }
     }
 }

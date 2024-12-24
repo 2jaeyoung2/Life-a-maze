@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace privateConsoleProject
@@ -112,24 +113,26 @@ namespace privateConsoleProject
             Console.WriteLine("※ Φ [최소 0.50 - 최대 3.50]");
         }
 
-        // 최고기록
+        // 기록
         static public void ShowRecords(int howLong)
         {
-            GameManager.RecordManager();
-            float max = StaticFields.myRecords.Max();
-
-            Console.SetCursorPosition(howLong * 2 + 7, 31);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"{max:F2}");
-            Console.ResetColor();
-            Console.WriteLine(" Max");
-            Console.SetCursorPosition(howLong * 2 + 7, 32);
-            Console.WriteLine("\bㅡ");
-
-            for (int i = 0; i < 3; i++)
+            if(StaticFields.recordMemo.Count != 0)
             {
-                Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
-                Console.WriteLine($"{StaticFields.myRecords.ElementAt(i):F2}");
+                float max = StaticFields.recordMemo.Max();
+
+                Console.SetCursorPosition(howLong * 2 + 7, 31);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write($"{max:F2}");
+                Console.ResetColor();
+                Console.WriteLine(" Max");
+                Console.SetCursorPosition(howLong * 2 + 7, 32);
+                Console.WriteLine("\bㅡ");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
+                    Console.WriteLine($"{StaticFields.recordMemo.ElementAt(StaticFields.recordMemo.Count - 1 - i):F2}");
+                }
             }
         }
     }
