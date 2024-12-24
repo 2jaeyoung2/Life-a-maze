@@ -9,10 +9,13 @@ namespace privateConsoleProject
     static class StaticFields
     {
         static public ConsoleKeyInfo keyInput;
+
         static public bool again = false;
         static public bool gameStart = true;
         static public bool isRorQ;
+
         static public int playCount = 0;
+
         static public float tempScore = 0;
         static public float tempLocation;
 
