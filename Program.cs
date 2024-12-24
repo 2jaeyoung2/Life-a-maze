@@ -149,6 +149,8 @@ namespace privateConsoleProject
                 // 'R' 키로 맵 재생성
                 if (StaticFields.keyInput.Key == ConsoleKey.R)
                 {
+                    StaticFields.posX.Clear();
+                    StaticFields.posY.Clear();
                     return reStart = true;
                 }
 

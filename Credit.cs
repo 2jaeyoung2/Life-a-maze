@@ -44,11 +44,11 @@ namespace privateConsoleProject
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine(list.ElementAt(where).Value);
-            Thread.Sleep(250);
+            Thread.Sleep(200);
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(list.ElementAt(where).Value);
-            Thread.Sleep(250);
+            Thread.Sleep(200);
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(list.ElementAt(where).Value);
@@ -56,11 +56,11 @@ namespace privateConsoleProject
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(list.ElementAt(where).Value);
-            Thread.Sleep(250);
+            Thread.Sleep(200);
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine(list.ElementAt(where).Value);
-            Thread.Sleep(250);
+            Thread.Sleep(200);
             Console.SetCursorPosition(Console.WindowWidth / 2 + mentPosX, Console.WindowHeight / 2 + mentPosY);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(list.ElementAt(where).Value);
