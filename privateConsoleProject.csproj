@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Credit.cs" />
     <Compile Include="DashBoard.cs" />
     <Compile Include="Fruit.cs" />
     <Compile Include="GameManager.cs" />

@@ -86,7 +86,6 @@ namespace privateConsoleProject
                 }
                 StaticFields.playCount++;
             }
-
             GameManager.QuitGame();
         }
 
@@ -132,7 +131,7 @@ namespace privateConsoleProject
             // 상황판
             DashBoard.InGameFrame(distance);
             DashBoard.GameRule(distance);
-            DashBoard.ShowRecords(distance);
+            DashBoard.ShowLastThreeRecords(distance);
 
             // 맵 랜더링
             Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
