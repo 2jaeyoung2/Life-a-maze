@@ -9,6 +9,7 @@ namespace privateConsoleProject
     static class StaticFields
     {
         static public ConsoleKeyInfo keyInput;
+        static public Random random = new Random();
 
         static public bool again = false;
         static public bool gameStart = true;
@@ -21,6 +22,9 @@ namespace privateConsoleProject
 
         static public Queue<int> posX = new Queue<int>();
         static public Queue<int> posY = new Queue<int>();
+
+        static public Dictionary<int, string> creditList = new Dictionary<int, string>();
+
         static public List<float> recordMemo = new List<float>(new[] { 0f, 0f, 0f });
     }
 }

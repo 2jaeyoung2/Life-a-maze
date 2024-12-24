@@ -10,7 +10,6 @@ namespace privateConsoleProject
     {
         int randomWall;
         int randomDestroy;
-        Random random = new Random();
 
         public void MakeField(int distance, TileType[,] maze)
         {
@@ -41,7 +40,7 @@ namespace privateConsoleProject
                 {
                     if (maze[i, j].Type == (int)MazeCompo.floor)
                     {
-                        randomWall = random.Next(0, 4); //벽 밀도 조절
+                        randomWall = StaticFields.random.Next(0, 4); //벽 밀도 조절
                         if (randomWall == 2)
                         {
                             maze[i, j].Type = (int)MazeCompo.wall;
@@ -64,7 +63,7 @@ namespace privateConsoleProject
                         //주변이 벽으로 막혀있다면
                         if (maze[i + 1, j].Type >= (int)MazeCompo.wall && maze[i - 1, j].Type >= (int)MazeCompo.wall && maze[i, j + 1].Type >= (int)MazeCompo.wall && maze[i, j - 1].Type >= (int)MazeCompo.wall)
                         {
-                            randomDestroy = random.Next(0, 4);
+                            randomDestroy = StaticFields.random.Next(0, 4);
                             //랜덤으로 뚫어라
                             switch (randomDestroy)
                             {

@@ -49,18 +49,12 @@ namespace privateConsoleProject
             Console.WriteLine("> 종료(Q) <");
         }
 
-
         // 엔딩
         static public void Ending()
         {
             Console.Clear();
-            // 점수 회상
-            for(int i = 3; i < StaticFields.recordMemo.Count; i++)
-            {
-                Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2);
-                Console.WriteLine($"{StaticFields.recordMemo.ElementAt(i):F2}");
-                Thread.Sleep(800);
-            }
+            DashBoard.ShowAllRecords();
+            Credit.ShowCredit();
         }
 
         // 끄기

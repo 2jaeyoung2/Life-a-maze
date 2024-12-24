@@ -8,7 +8,6 @@ namespace privateConsoleProject
 {
     class Fruit
     {
-        Random random = new Random();
         int randomItemPlace;
         float randomScore;
         int floorCount = 0;
@@ -35,8 +34,8 @@ namespace privateConsoleProject
                 {
                     if (maze[i, j].Type == (int)MazeCompo.floor)
                     {
-                        randomItemPlace = random.Next(0, floorCount / distance);
-                        randomScore = (float)random.Next(50, 351) / 100;
+                        randomItemPlace = StaticFields.random.Next(0, floorCount / distance);
+                        randomScore = (float)StaticFields.random.Next(50, 351) / 100;
 
                         if (randomItemPlace == 0)
                         {

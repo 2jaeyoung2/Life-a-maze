@@ -113,8 +113,8 @@ namespace privateConsoleProject
             Console.WriteLine("※ Φ [최소 0.50 - 최대 3.50]");
         }
 
-        // 기록
-        static public void ShowRecords(int howLong)
+        // 최근 기록 세 개 표시
+        static public void ShowLastThreeRecords(int howLong)
         {
             if(StaticFields.recordMemo.Count != 0)
             {
@@ -133,6 +133,17 @@ namespace privateConsoleProject
                     Console.SetCursorPosition(howLong * 2 + 7, 33 + i);
                     Console.WriteLine($"{StaticFields.recordMemo.ElementAt(StaticFields.recordMemo.Count - 1 - i):F2}");
                 }
+            }
+        }
+
+        // 역대 기록
+        static public void ShowAllRecords()
+        {
+            for (int i = 3; i < StaticFields.recordMemo.Count; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2);
+                Console.WriteLine($"{StaticFields.recordMemo.ElementAt(i):F2}");
+                Thread.Sleep(800);
             }
         }
     }
