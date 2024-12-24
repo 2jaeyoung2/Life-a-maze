@@ -54,6 +54,7 @@ namespace privateConsoleProject
         {
             Console.Clear();
             DashBoard.ShowAllRecords();
+            Console.Clear();
             Credit.ShowCredit();
         }
 
@@ -61,8 +62,8 @@ namespace privateConsoleProject
         static public void QuitGame()
         {
             Console.Clear();
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2);
-            Console.WriteLine($"{StaticFields.playCount} END");
+            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Console.WriteLine($"END");
             Console.ForegroundColor = ConsoleColor.Black;
         }
     }

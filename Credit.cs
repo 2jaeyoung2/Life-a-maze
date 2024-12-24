@@ -11,14 +11,16 @@ namespace privateConsoleProject
     {
         static public void AddCredit(int playCount)
         {
+            int i = 0;
             StaticFields.creditList = new Dictionary<int, string>
             {
-                { 1, $"당신은 {playCount} 번의 삶을 경험했습니다." },
-                { 2, "당신의 인생은 한 번 뿐입니다." },
-                { 3, "떠나간 기회는 다시 돌아오지 않습니다." },
-                { 4, "Made by Lee Jaeyoung" },
-                { 5, "Visual Studio<C#>, Github" },
-                { 6, "Life is a mazing" }
+                { i++, $"당신은 {playCount} 번의 삶을 경험했습니다." },
+                { i++, "당신의 인생은 한 번 뿐입니다." },
+                { i++, "떠나간 기회는 다시 돌아오지 않습니다." },
+                { i++, "Made by Lee Jaeyoung" },
+                { i++, "12/3 - 12/26(Average: 1H per Day)" },
+                { i++, "Visual Studio<C#>, Github" },
+                { i++, "Life is amazing." }
             };
         }
 

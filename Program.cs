@@ -63,6 +63,7 @@ namespace privateConsoleProject
                 // V 첫 게임
                 if (StaticFields.again == false)
                 {
+                    StaticFields.playCount++;
                     StaticFields.keyInput = Console.ReadKey(true);
                     if (StaticFields.keyInput.Key == ConsoleKey.Z)
                     {
@@ -84,7 +85,6 @@ namespace privateConsoleProject
                     GameManager.Banner();
                     StartGame(ref StaticFields.gameStart);
                 }
-                StaticFields.playCount++;
             }
             GameManager.QuitGame();
         }

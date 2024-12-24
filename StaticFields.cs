@@ -9,6 +9,7 @@ namespace privateConsoleProject
     static class StaticFields
     {
         static public ConsoleKeyInfo keyInput;
+
         static public Random random = new Random();
 
         static public bool again = false;
