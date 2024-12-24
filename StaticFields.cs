@@ -12,7 +12,7 @@ namespace privateConsoleProject
 
         static public Random random = new Random();
 
-        static public bool again = false;
+        static public bool firstGame = true;
         static public bool gameStart = true;
         static public bool isRorQ;
 

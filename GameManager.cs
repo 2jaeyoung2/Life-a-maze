@@ -56,6 +56,8 @@ namespace privateConsoleProject
             DashBoard.ShowAllRecords();
             Console.Clear();
             Credit.ShowCredit();
+            Console.SetCursorPosition(0, Console.WindowHeight / 2 - 5);
+            Banner();
         }
 
         // 끄기

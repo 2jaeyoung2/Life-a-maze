@@ -40,7 +40,7 @@ namespace privateConsoleProject
                 else
                 {
                     Thread.Sleep(2000);
-                    ColorChange(StaticFields.creditList, StaticFields.creditList.Count - 1, -8, 0);
+                    ColorChange(StaticFields.creditList, StaticFields.creditList.Count - 1, -7, 0);
                 }                
             }
         }
@@ -75,6 +75,8 @@ namespace privateConsoleProject
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(list.ElementAt(where).Value);
             Thread.Sleep(1);
+
+            Console.ResetColor();
         }
     }
 }

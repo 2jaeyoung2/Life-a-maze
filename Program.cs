@@ -61,16 +61,15 @@ namespace privateConsoleProject
             while (StaticFields.gameStart)
             {
                 // V 첫 게임
-                if (StaticFields.again == false)
+                if (StaticFields.firstGame == true)
                 {
-                    StaticFields.playCount++;
                     StaticFields.keyInput = Console.ReadKey(true);
                     if (StaticFields.keyInput.Key == ConsoleKey.Z)
                     {
                         Console.Clear();
                         GameManager.Banner();
                         StartGame(ref StaticFields.gameStart);
-                        StaticFields.again = true;
+                        StaticFields.firstGame = false;
                     }
                     else if (StaticFields.keyInput.Key == ConsoleKey.Q)
                     {
@@ -86,6 +85,7 @@ namespace privateConsoleProject
                     StartGame(ref StaticFields.gameStart);
                 }
             }
+            StaticFields.keyInput = Console.ReadKey(true);
             GameManager.QuitGame();
         }
 
@@ -135,6 +135,9 @@ namespace privateConsoleProject
 
             // 맵 랜더링
             Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
+
+            // 플레이 카운트 +1
+            StaticFields.playCount++;
 
             // 플레이
             while (stepCount > 0)
