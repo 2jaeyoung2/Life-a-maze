@@ -32,11 +32,13 @@ namespace privateConsoleProject
             {
                 for (int j = 0; j < distance; j++)
                 {
+                    // 만약 특정 칸이 floor 타일인 곳에
                     if (maze[i, j].Type == (int)MazeCompo.floor)
                     {
                         randomItemPlace = StaticFields.random.Next(0, floorCount / distance);
                         randomScore = (float)StaticFields.random.Next(50, 351) / 100;
 
+                        // randomItemPlace가 0이 나오면 아이템 타일로 교체
                         if (randomItemPlace == 0)
                         {
                             maze[i, j].Type = (int)MazeCompo.item;
