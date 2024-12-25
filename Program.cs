@@ -77,7 +77,7 @@ namespace privateConsoleProject
                         StaticFields.gameStart = false;
                     }
                 }
-                // V 맵 재생성 후
+                // V 두 번째 게임부터
                 else
                 {
                     Console.Clear();

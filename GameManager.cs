@@ -40,10 +40,10 @@ namespace privateConsoleProject
         {
             Console.SetCursorPosition(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 + 1);
             Console.WriteLine("\"일생에 찾아오는 세 번의 기회\"");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 6, Console.WindowHeight / 2 + 10);
-            Console.WriteLine("> 시작(Z) <");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 6, Console.WindowHeight / 2 + 12);
-            Console.WriteLine("> 종료(Q) <");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 10);
+            Console.WriteLine("시작");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 12);
+            Console.WriteLine("종료");
         }
 
         // 깜빡임
@@ -133,7 +133,6 @@ namespace privateConsoleProject
             // 플레이
             while (stepCount > 0)
             {
-
                 // 현재 정보
                 DashBoard.ShowInformation(distance, stepCount / 2, StaticFields.tempScore, player.PlayerScore, eatCount);
 
@@ -178,12 +177,9 @@ namespace privateConsoleProject
                     PlayerAction.EatFruit(ref player, ref maze, ref eatCount);
                 }
 
-                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
-
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
-                    //Rendering.ShowSteps(StaticFields.posX, StaticFields.posY, ref maze);
                     Rendering.RenderMazeAll(distance, player, maze);
                     Rendering.RenderSteps(distance, player, maze);
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
@@ -212,6 +208,9 @@ namespace privateConsoleProject
                     }
                     break;
                 }
+
+
+                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
             }
             reStart = false;
             return reStart;

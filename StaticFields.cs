@@ -12,9 +12,9 @@ namespace privateConsoleProject
 
         static public Random random = new Random();
 
-        static public bool firstGame = true;
+        static public bool firstGame = true; // 첫 게임인지 판별
         static public bool gameStart = true;
-        static public bool isRorQ;
+        static public bool isRorQ; // 게임 끝난 후 재게임 여부 판별
 
         static public int height = 38;
         static public int width = 104;

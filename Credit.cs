@@ -15,7 +15,6 @@ namespace privateConsoleProject
             StaticFields.creditList = new Dictionary<int, string>
             {
                 { i++, $"당신은 {playCount} 번의 삶을 경험했습니다." },
-                { i++, "당신의 인생은 한 번 뿐입니다." },
                 { i++, "떠나간 기회는 다시 돌아오지 않습니다." },
                 { i++, "Made by Lee Jaeyoung" },
                 { i++, "12/3 - 12/26(Average: 1H per Day)" },

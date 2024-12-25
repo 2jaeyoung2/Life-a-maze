@@ -55,26 +55,7 @@ namespace privateConsoleProject
                         //아이템
                         else if (maze[i, j].Type == (float)MazeCompo.item)
                         {
-                            if (maze[i, j].Score > 3)
-                            {
-                                Console.Write("Φ");
-                            }
-                            else if (maze[i, j].Score > 3)
-                            {
-                                Console.Write("Φ");
-                            }
-                            else if (maze[i, j].Score > 2.3)
-                            {
-                                Console.Write("Φ");
-                            }
-                            else if (maze[i, j].Score > 1.7)
-                            {
-                                Console.Write("Φ");
-                            }
-                            else
-                            {
-                                Console.Write("Φ");
-                            }
+                            Console.Write("Φ");
                         }
                     }
                     else
@@ -148,15 +129,6 @@ namespace privateConsoleProject
                 Thread.Sleep(150);
                 Console.Write("回");
                 Console.ResetColor();
-            }
-        }
-
-        // 행보
-        static public void ShowSteps(Queue<int> x, Queue<int> y, ref TileType[,] maze)
-        {
-            while(x.Count != 0)
-            {
-                maze[y.Dequeue(), x.Dequeue()].Type = (float)MazeCompo.step;
             }
         }
     }
