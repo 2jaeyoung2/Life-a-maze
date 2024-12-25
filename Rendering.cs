@@ -126,7 +126,7 @@ namespace privateConsoleProject
             {
                 Console.SetCursorPosition(2 + StaticFields.posX.Dequeue() * 2, 12 + StaticFields.posY.Dequeue());
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Thread.Sleep(150);
+                Thread.Sleep(100);
                 Console.Write("回");
                 Console.ResetColor();
             }
