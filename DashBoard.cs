@@ -95,7 +95,7 @@ namespace privateConsoleProject
             Console.SetCursorPosition(howLong * 2 + 7, 14);
             Console.WriteLine($"당신은 총 {100 - stepCount}걸음을 걸으며");
             Console.SetCursorPosition(howLong * 2 + 7, 16);
-            Console.WriteLine($"{eatCount}개의 기회를 붙잡아");
+            Console.WriteLine($"{eatCount}개의 열매를 획득하여");
             Console.SetCursorPosition(howLong * 2 + 7, 18);
             Console.WriteLine($"{sumPoint:F2}점을 얻으셨습니다.");
             Console.SetCursorPosition(howLong * 2 + 7, 20);
