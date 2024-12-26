@@ -51,7 +51,6 @@ namespace privateConsoleProject
 
             while (true)
             {
-                StaticFields.keyInput = Console.ReadKey(true);
 
                 if(StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
@@ -87,6 +86,9 @@ namespace privateConsoleProject
                     StaticFields.gameStart = false;
                     break;
                 }
+
+                StaticFields.keyInput = Console.ReadKey(true);
+
             }
         }
 

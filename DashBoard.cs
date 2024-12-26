@@ -106,7 +106,7 @@ namespace privateConsoleProject
         static public void GameRule(int howLong)
         {
             Console.SetCursorPosition(howLong * 2 + 7, 24);
-            Console.WriteLine("※ 방향키로 이동");
+            Console.WriteLine("※ ←, →, ↑, ↓");
             Console.SetCursorPosition(howLong * 2 + 7, 26);
             Console.WriteLine("※ Z - 열매 먹기");
             Console.SetCursorPosition(howLong * 2 + 7, 28);
