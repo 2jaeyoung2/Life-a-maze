@@ -44,6 +44,10 @@ namespace privateConsoleProject
             Console.WriteLine("시작");
             Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 12);
             Console.WriteLine("종료");
+            Console.SetCursorPosition(2, Console.WindowHeight - 3);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("↑, ↓, [Enter]");
+            Console.ResetColor();
 
             while (true)
             {
