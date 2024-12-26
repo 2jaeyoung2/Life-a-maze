@@ -122,6 +122,7 @@ namespace privateConsoleProject
             {
                 float max = StaticFields.recordMemo.Max();
                 
+                // 최고기록 갱신하면 깜빡임
                 if(max > 0 && max > StaticFields.tempHighestScore)
                 {
                     StaticFields.tempHighestScore = max;

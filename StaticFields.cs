@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,8 @@ namespace privateConsoleProject
         static public double distanceFromPlayer = 0;
 
         // 시야 좌표 큐
-        static public Queue<int> tilePosX = new Queue<int>();
-        static public Queue<int> tilePosY = new Queue<int>();
+        //static public Queue<int> tilePosX = new Queue<int>();
+        //static public Queue<int> tilePosY = new Queue<int>();
 
         // 발자국 좌표 큐
         static public Queue<int> posX = new Queue<int>();

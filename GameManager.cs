@@ -44,6 +44,7 @@ namespace privateConsoleProject
             Console.WriteLine("시작");
             Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 12);
             Console.WriteLine("종료");
+
             Console.SetCursorPosition(2, Console.WindowHeight - 3);
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("↑, ↓, [Enter]");
@@ -170,7 +171,7 @@ namespace privateConsoleProject
             DashBoard.GameRule(distance);
             DashBoard.ShowLastThreeRecords(distance);
 
-            // 맵 랜더링
+            // 초기 맵 랜더링
             Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
             // 플레이 카운트 +1
@@ -223,6 +224,7 @@ namespace privateConsoleProject
                     PlayerAction.EatFruit(ref player, ref maze, ref eatCount);
                 }
 
+                // 반복 맵 랜더링
                 Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
 
                 // 열매를 세 개 다 먹었다면
