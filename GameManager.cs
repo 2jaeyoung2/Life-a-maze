@@ -44,6 +44,46 @@ namespace privateConsoleProject
             Console.WriteLine("시작");
             Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 12);
             Console.WriteLine("종료");
+
+            while (true)
+            {
+                StaticFields.keyInput = Console.ReadKey(true);
+
+                if(StaticFields.keyInput.Key == ConsoleKey.UpArrow)
+                {
+                    StaticFields.isUpOrDown = true;
+                }
+                else if(StaticFields.keyInput.Key == ConsoleKey.DownArrow)
+                {
+                    StaticFields.isUpOrDown = false;
+                }
+
+                if(StaticFields.isUpOrDown == true)
+                {
+                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
+                    Console.WriteLine(" <");
+                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
+                    Console.WriteLine("  ");
+                }
+                else if(StaticFields.isUpOrDown == false)
+                {
+                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
+                    Console.WriteLine("  ");
+                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
+                    Console.WriteLine(" <");
+                }
+
+                if(StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == true)
+                {
+                    StaticFields.gameStart = true;
+                    break;
+                }
+                else if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == false)
+                {
+                    StaticFields.gameStart = false;
+                    break;
+                }
+            }
         }
 
         // 깜빡임

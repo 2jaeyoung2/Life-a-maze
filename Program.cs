@@ -15,9 +15,6 @@ namespace privateConsoleProject
         float _type;
         float _score;
 
-        public int TilePosX { get; set; }
-        public int TilePosY { get; set; }
-
         public float Type
         {
             get { return _type; }
@@ -66,19 +63,10 @@ namespace privateConsoleProject
                 // V 첫 게임
                 if (StaticFields.firstGame == true)
                 {
-                    StaticFields.keyInput = Console.ReadKey(true);
-                    if (StaticFields.keyInput.Key == ConsoleKey.Z)
-                    {
-                        Console.Clear();
-                        GameManager.Banner();
-                        GameManager.StartGame(ref StaticFields.gameStart);
-                        StaticFields.firstGame = false;
-                    }
-                    else if (StaticFields.keyInput.Key == ConsoleKey.Q)
-                    {
-                        StaticFields.playCount--;
-                        StaticFields.gameStart = false;
-                    }
+                    Console.Clear();
+                    GameManager.Banner();
+                    GameManager.StartGame(ref StaticFields.gameStart);
+                    StaticFields.firstGame = false;
                 }
                 // V 두 번째 게임부터
                 else
