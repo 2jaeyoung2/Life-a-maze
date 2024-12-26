@@ -24,6 +24,13 @@ namespace privateConsoleProject
         static public float tempLocation;
         static public float tempHighestScore = 0;
 
+        static public double distanceFromPlayer = 0;
+
+        // 시야 좌표 큐
+        static public Queue<int> tilePosX = new Queue<int>();
+        static public Queue<int> tilePosY = new Queue<int>();
+
+        // 발자국 좌표 큐
         static public Queue<int> posX = new Queue<int>();
         static public Queue<int> posY = new Queue<int>();
 

@@ -15,6 +15,9 @@ namespace privateConsoleProject
         float _type;
         float _score;
 
+        public int TilePosX { get; set; }
+        public int TilePosY { get; set; }
+
         public float Type
         {
             get { return _type; }

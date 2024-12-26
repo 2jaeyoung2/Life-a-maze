@@ -177,11 +177,13 @@ namespace privateConsoleProject
                     PlayerAction.EatFruit(ref player, ref maze, ref eatCount);
                 }
 
+                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
+
                 // 열매를 세 개 다 먹었다면
                 if (eatCount == 3 || stepCount == 0)
                 {
                     Rendering.RenderMazeAll(distance, player, maze);
-                    Rendering.RenderSteps(distance, player, maze);
+                    Rendering.RenderSteps();
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
                     StaticFields.recordMemo.Add(player.PlayerScore);
 
@@ -208,9 +210,6 @@ namespace privateConsoleProject
                     }
                     break;
                 }
-
-
-                Rendering.RenderMazeLimitedView(distance, ref player, ref maze);
             }
             reStart = false;
             return reStart;
