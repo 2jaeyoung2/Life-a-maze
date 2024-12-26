@@ -21,6 +21,7 @@ namespace privateConsoleProject
 
         static public int height = 38;
         static public int width = 104;
+        static public int selectMenuNum = 0;
         static public int playCount = 0;
 
         static public float tempScore = 0;
@@ -29,9 +30,7 @@ namespace privateConsoleProject
 
         static public double distanceFromPlayer = 0;
 
-        // 시야 좌표 큐
-        //static public Queue<int> tilePosX = new Queue<int>();
-        //static public Queue<int> tilePosY = new Queue<int>();
+        static public List<string> menuList = new List<string> {"시작", "종료", "임시"};
 
         // 발자국 좌표 큐
         static public Queue<int> posX = new Queue<int>();
