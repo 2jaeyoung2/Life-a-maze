@@ -10,12 +10,13 @@ namespace privateConsoleProject
     static class StaticFields
     {
         static public ConsoleKeyInfo keyInput;
+        static public Stopwatch stopwatchBlink = new Stopwatch();
 
         static public Random random = new Random();
 
         static public bool isUpOrDown = true; // 시작 메뉴
-        static public bool firstGame = true; // 첫 게임인지 판별
         static public bool gameStart;
+        static public bool firstGame = true; // 첫 게임인지 판별
         static public bool isRorQ; // 게임 끝난 후 재게임 여부 판별
 
         static public int height = 38;
