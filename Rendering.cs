@@ -85,7 +85,6 @@ namespace privateConsoleProject
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.Write("□");
                         Console.ResetColor();
-
                     }
                     else if (maze[i, j].Type == (float)MazeCompo.step)
                     {
@@ -115,12 +114,10 @@ namespace privateConsoleProject
                 }
                 Console.WriteLine();
             }
-
-
         }
 
         // 발자국 남기기
-        static public void RenderSteps(int distance, Player player, TileType[,] maze)
+        static public void RenderSteps()
         {
             while(StaticFields.posX.Count > 0)
             {
