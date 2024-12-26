@@ -64,20 +64,25 @@ namespace privateConsoleProject
 
                 if(StaticFields.isUpOrDown == true)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
-                    Console.WriteLine(" <");
+                    Console.WriteLine(" ◁");
                     Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
-                    Console.WriteLine("  ");
+                    Console.WriteLine("   ");
+                    Console.ResetColor();
                 }
                 else if(StaticFields.isUpOrDown == false)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
-                    Console.WriteLine("  ");
+                    Console.WriteLine("   ");
                     Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
-                    Console.WriteLine(" <");
+                    Console.WriteLine(" ◁");
+                    Console.ResetColor();
                 }
 
-                if(StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == true)
+
+                if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == true)
                 {
                     StaticFields.gameStart = true;
                     break;
@@ -99,7 +104,7 @@ namespace privateConsoleProject
             for(int i = 0; i < 3; i++)
             {
                 Console.SetCursorPosition(howLong * 2 + 7, 31);
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write($"{max:F2}");
                 Thread.Sleep(400);
                 Console.SetCursorPosition(howLong * 2 + 7, 31);
@@ -231,8 +236,8 @@ namespace privateConsoleProject
                 if (eatCount == 3 || stepCount == 0)
                 {
                     Rendering.RenderMazeAll(distance, player, maze);
-                    Rendering.RenderSteps();
                     DashBoard.Recap(distance, stepCount / 2, player.PlayerScore, eatCount);
+                    Rendering.RenderSteps();
                     StaticFields.recordMemo.Add(player.PlayerScore);
 
                     // 기록 업데이트
