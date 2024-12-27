@@ -104,13 +104,14 @@ namespace privateConsoleProject
             }
         }
 
+        // 시작화면용 화살표
         static public void ArrowPosition()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 8 + StaticFields.selectMenuNum * 2);
             Console.WriteLine("   ");
             Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10 + StaticFields.selectMenuNum * 2);
-            Console.WriteLine(" ◁");
+            Console.WriteLine(" ◀");
             Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12 + StaticFields.selectMenuNum * 2);
             Console.WriteLine("   ");
             Console.ResetColor();
