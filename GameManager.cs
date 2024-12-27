@@ -57,20 +57,16 @@ namespace privateConsoleProject
 
                 if (StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
-
                     if (StaticFields.selectMenuNum > 0)
                     {
                         StaticFields.selectMenuNum--;
-                        StaticFields.isUpOrDown = true;
                     }
                 }
                 else if (StaticFields.keyInput.Key == ConsoleKey.DownArrow)
                 {
-
                     if (StaticFields.selectMenuNum < StaticFields.menuList.Count - 1)
                     {
                         StaticFields.selectMenuNum++;
-                        StaticFields.isUpOrDown = false;
                     }
                 }
 
@@ -99,6 +95,7 @@ namespace privateConsoleProject
                     break;
                 }
 
+                // 키 입력
                 StaticFields.keyInput = Console.ReadKey(true);
 
             }
