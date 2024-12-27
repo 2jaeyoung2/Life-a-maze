@@ -30,7 +30,7 @@ namespace privateConsoleProject
 
         static public double distanceFromPlayer = 0;
 
-        static public List<string> menuList = new List<string> {"시작", "종료", "임시"};
+        static public List<string> menuList = new List<string> {"시작", "종료"};
 
         // 발자국 좌표 큐
         static public Queue<int> posX = new Queue<int>();

@@ -55,57 +55,45 @@ namespace privateConsoleProject
             while (true)
             {
 
-                if(StaticFields.keyInput.Key == ConsoleKey.UpArrow)
+                if (StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
-                    StaticFields.selectMenuNum--;
-                    StaticFields.isUpOrDown = true;
 
-                    if (StaticFields.selectMenuNum <= 0)
+                    if (StaticFields.selectMenuNum > 0)
                     {
-                        StaticFields.selectMenuNum = 0;
+                        StaticFields.selectMenuNum--;
+                        StaticFields.isUpOrDown = true;
                     }
                 }
-                else if(StaticFields.keyInput.Key == ConsoleKey.DownArrow)
+                else if (StaticFields.keyInput.Key == ConsoleKey.DownArrow)
                 {
-                    StaticFields.selectMenuNum++;
-                    StaticFields.isUpOrDown = false;
 
-                    if (StaticFields.selectMenuNum >= StaticFields.menuList.Count - 1)
+                    if (StaticFields.selectMenuNum < StaticFields.menuList.Count - 1)
                     {
-                        StaticFields.selectMenuNum = StaticFields.menuList.Count - 1;
+                        StaticFields.selectMenuNum++;
+                        StaticFields.isUpOrDown = false;
                     }
                 }
 
-                if(StaticFields.isUpOrDown == true)
+                switch (StaticFields.selectMenuNum)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 8 - StaticFields.selectMenuNum * 2);
-                    Console.WriteLine("   ");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10 - StaticFields.selectMenuNum * 2);
-                    Console.WriteLine(" ◁");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12 - StaticFields.selectMenuNum * 2);
-                    Console.WriteLine("   ");
-                    Console.ResetColor();
-                }
-                else if(StaticFields.isUpOrDown == false)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 8 + StaticFields.selectMenuNum * 2);
-                    Console.WriteLine("   ");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10 + StaticFields.selectMenuNum * 2);
-                    Console.WriteLine(" ◁");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12 + StaticFields.selectMenuNum * 2);
-                    Console.WriteLine("   ");
-                    Console.ResetColor();
+                    case 0: // 시작
+                        {
+                            ArrowPosition();
+                            break;
+                        }
+                    case 1: // 종료
+                        {
+                            ArrowPosition();
+                            break;
+                        }
                 }
 
-
-                if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == true)
+                if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.selectMenuNum == 0)
                 {
                     StaticFields.gameStart = true;
                     break;
                 }
-                else if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == false)
+                else if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.selectMenuNum == 1)
                 {
                     StaticFields.gameStart = false;
                     break;
@@ -114,6 +102,18 @@ namespace privateConsoleProject
                 StaticFields.keyInput = Console.ReadKey(true);
 
             }
+        }
+
+        static public void ArrowPosition()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 8 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine("   ");
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine(" ◁");
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine("   ");
+            Console.ResetColor();
         }
 
         // 깜빡임
