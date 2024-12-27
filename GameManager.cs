@@ -40,10 +40,12 @@ namespace privateConsoleProject
         {
             Console.SetCursorPosition(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 + 1);
             Console.WriteLine("\"일생에 찾아오는 세 번의 기회\"");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 10);
-            Console.WriteLine("시작");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 12);
-            Console.WriteLine("종료");
+
+            for(int i = 0; i < StaticFields.menuList.Count; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - 2, Console.WindowHeight / 2 + 10 + i * 2);
+                Console.WriteLine(StaticFields.menuList.ElementAt(i));
+            }
 
             Console.SetCursorPosition(2, Console.WindowHeight - 3);
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -53,49 +55,63 @@ namespace privateConsoleProject
             while (true)
             {
 
-                if(StaticFields.keyInput.Key == ConsoleKey.UpArrow)
+                if (StaticFields.keyInput.Key == ConsoleKey.UpArrow)
                 {
-                    StaticFields.isUpOrDown = true;
+                    if (StaticFields.selectMenuNum > 0)
+                    {
+                        StaticFields.selectMenuNum--;
+                    }
                 }
-                else if(StaticFields.keyInput.Key == ConsoleKey.DownArrow)
+                else if (StaticFields.keyInput.Key == ConsoleKey.DownArrow)
                 {
-                    StaticFields.isUpOrDown = false;
-                }
-
-                if(StaticFields.isUpOrDown == true)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
-                    Console.WriteLine(" ◁");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
-                    Console.WriteLine("   ");
-                    Console.ResetColor();
-                }
-                else if(StaticFields.isUpOrDown == false)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10);
-                    Console.WriteLine("   ");
-                    Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12);
-                    Console.WriteLine(" ◁");
-                    Console.ResetColor();
+                    if (StaticFields.selectMenuNum < StaticFields.menuList.Count - 1)
+                    {
+                        StaticFields.selectMenuNum++;
+                    }
                 }
 
+                switch (StaticFields.selectMenuNum)
+                {
+                    case 0: // 시작
+                        {
+                            ArrowPosition();
+                            break;
+                        }
+                    case 1: // 종료
+                        {
+                            ArrowPosition();
+                            break;
+                        }
+                }
 
-                if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == true)
+                if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.selectMenuNum == 0)
                 {
                     StaticFields.gameStart = true;
                     break;
                 }
-                else if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.isUpOrDown == false)
+                else if (StaticFields.keyInput.Key == ConsoleKey.Enter && StaticFields.selectMenuNum == 1)
                 {
                     StaticFields.gameStart = false;
                     break;
                 }
 
+                // 키 입력
                 StaticFields.keyInput = Console.ReadKey(true);
 
             }
+        }
+
+        // 시작화면용 화살표
+        static public void ArrowPosition()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 8 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine("   ");
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 10 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine(" ◀");
+            Console.SetCursorPosition(Console.WindowWidth / 2 + 2, Console.WindowHeight / 2 + 12 + StaticFields.selectMenuNum * 2);
+            Console.WriteLine("   ");
+            Console.ResetColor();
         }
 
         // 깜빡임
